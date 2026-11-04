@@ -1,0 +1,5 @@
+# Your local runs. Results that matter come back from `habs ls`, not from here.
+out/
+.venv/
+__pycache__/
+*.pyc

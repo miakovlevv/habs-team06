@@ -1,0 +1,7 @@
+# `habs submit` uploads this repository with `git archive`, and your job reads
+# the real dataset at /data -- so the local sample never needs to make the
+# trip. Without this line every push uploads 121 MB that the job never reads,
+# and the GPU downloads it again before running a line of your code.
+#
+# It stays in the repository, and `habs run --data ./sample` still uses it.
+sample/ export-ignore

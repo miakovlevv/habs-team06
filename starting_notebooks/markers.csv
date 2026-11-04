@@ -1,0 +1,119 @@
+Emotion or task,Start Marker,End Marker,Repetition
+"Quiet rest, eyes open",10000,10001,0
+Quiet rest without blinking or moving,10002,10003,0
+"Quiet rest, eyes closed",10004,10005,0
+Blink repeatedly,10006,10007,0
+Move eyes from right to left without moving the head,10008,10009,0
+Move eyes up and down without moving the head,10010,10011,0
+Turn head from left to right,10012,10013,0
+Tilt head up and down,10014,10015,0
+Clench jaw,10016,10017,0
+Swallow repeatedly,10018,10019,0
+Anger,10100,10101,0
+Fear,10200,10201,0
+Disgust,10300,10301,0
+Sadness,10400,10401,0
+Joy,10500,10501,0
+Surprise,10600,10601,0
+Excitation,10700,10701,0
+Relaxation,10800,10801,0
+Blame,10900,10901,0
+Sensuality,11000,11001,0
+Curiosity,11100,11101,0
+Neutral,11200,11201,0
+Anger,10102,10103,1
+Fear,10202,10203,1
+Disgust,10302,10303,1
+Sadness,10402,10403,1
+Joy,10502,10503,1
+Surprise,10602,10603,1
+Excitation,10702,10703,1
+Relaxation,10802,10803,1
+Blame,10902,10903,1
+Sensuality,11002,11003,1
+Curiosity,11102,11103,1
+Neutral,11202,11203,1
+Anger,10104,10105,2
+Fear,10204,10205,2
+Disgust,10304,10305,2
+Sadness,10404,10405,2
+Joy,10504,10505,2
+Surprise,10604,10605,2
+Excitation,10704,10705,2
+Relaxation,10804,10805,2
+Blame,10904,10905,2
+Sensuality,11004,11005,2
+Curiosity,11104,11105,2
+Neutral,11204,11205,2
+Anger,10106,10107,3
+Fear,10206,10207,3
+Disgust,10306,10307,3
+Sadness,10406,10407,3
+Joy,10506,10507,3
+Surprise,10606,10607,3
+Excitation,10706,10707,3
+Relaxation,10806,10807,3
+Blame,10906,10907,3
+Sensuality,11006,11007,3
+Curiosity,11106,11107,3
+Neutral,11206,11207,3
+Anger,10108,10109,4
+Fear,10208,10209,4
+Disgust,10308,10309,4
+Sadness,10408,10409,4
+Joy,10508,10509,4
+Surprise,10608,10609,4
+Excitation,10708,10709,4
+Relaxation,10808,10809,4
+Blame,10908,10909,4
+Sensuality,11008,11009,4
+Curiosity,11108,11109,4
+Neutral,11208,11209,4
+Anger,10110,10111,5
+Fear,10210,10211,5
+Disgust,10310,10311,5
+Sadness,10410,10411,5
+Joy,10510,10511,5
+Surprise,10610,10611,5
+Excitation,10710,10711,5
+Relaxation,10810,10811,5
+Blame,10910,10911,5
+Sensuality,11010,11011,5
+Curiosity,11110,11111,5
+Neutral,11210,11211,5
+Anger,10112,10113,6
+Fear,10212,10213,6
+Disgust,10312,10313,6
+Sadness,10412,10413,6
+Joy,10512,10513,6
+Surprise,10612,10613,6
+Excitation,10712,10713,6
+Relaxation,10812,10813,6
+Blame,10912,10913,6
+Sensuality,11012,11013,6
+Curiosity,11112,11113,6
+Neutral,11212,11213,6
+Anger,10114,10115,7
+Fear,10214,10215,7
+Disgust,10314,10315,7
+Sadness,10414,10415,7
+Joy,10514,10515,7
+Surprise,10614,10615,7
+Excitation,10714,10715,7
+Relaxation,10814,10815,7
+Blame,10914,10915,7
+Sensuality,11014,11015,7
+Curiosity,11114,11115,7
+Neutral,11214,11215,7
+Anger,10116,10117,8
+Fear,10216,10217,8
+Disgust,10316,10317,8
+Sadness,10416,10417,8
+Joy,10516,10517,8
+Surprise,10616,10617,8
+Excitation,10716,10717,8
+Relaxation,10816,10817,8
+Blame,10916,10917,8
+Sensuality,11016,11017,8
+Curiosity,11116,11117,8
+Neutral,11216,11217,8

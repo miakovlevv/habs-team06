@@ -1,0 +1,1224 @@
+{
+  "record_map_schema_version": 3,
+  "description": "BDF+ with TAL annotations",
+  "container_format": "BDF+",
+  "event_storage": [
+    "TAL"
+  ],
+  "stream_map": {
+    "0": {
+      "EEG": {
+        "channel_ranges": [
+          0,
+          63
+        ],
+        "correction": {
+          "RecordType": "EEG",
+          "PresetVersion": "0.0.3",
+          "SamplingFrequency": 1000.0,
+          "EffectiveSamplingFrequency": 1000.0090763342686,
+          "Manufacturer": "ANTNeuro",
+          "Channels": [
+            {
+              "name": "Fp1",
+              "units": "uV"
+            },
+            {
+              "name": "Fp2",
+              "units": "uV"
+            },
+            {
+              "name": "F9",
+              "units": "uV"
+            },
+            {
+              "name": "F7",
+              "units": "uV"
+            },
+            {
+              "name": "F3",
+              "units": "uV"
+            },
+            {
+              "name": "Fz",
+              "units": "uV"
+            },
+            {
+              "name": "F4",
+              "units": "uV"
+            },
+            {
+              "name": "F8",
+              "units": "uV"
+            },
+            {
+              "name": "F10",
+              "units": "uV"
+            },
+            {
+              "name": "FC5",
+              "units": "uV"
+            },
+            {
+              "name": "FC1",
+              "units": "uV"
+            },
+            {
+              "name": "FC2",
+              "units": "uV"
+            },
+            {
+              "name": "FC6",
+              "units": "uV"
+            },
+            {
+              "name": "T9",
+              "units": "uV"
+            },
+            {
+              "name": "T7",
+              "units": "uV"
+            },
+            {
+              "name": "C3",
+              "units": "uV"
+            },
+            {
+              "name": "C4",
+              "units": "uV"
+            },
+            {
+              "name": "T8",
+              "units": "uV"
+            },
+            {
+              "name": "T10",
+              "units": "uV"
+            },
+            {
+              "name": "CP5",
+              "units": "uV"
+            },
+            {
+              "name": "CP1",
+              "units": "uV"
+            },
+            {
+              "name": "CP2",
+              "units": "uV"
+            },
+            {
+              "name": "CP6",
+              "units": "uV"
+            },
+            {
+              "name": "P9",
+              "units": "uV"
+            },
+            {
+              "name": "P7",
+              "units": "uV"
+            },
+            {
+              "name": "P3",
+              "units": "uV"
+            },
+            {
+              "name": "Pz",
+              "units": "uV"
+            },
+            {
+              "name": "P4",
+              "units": "uV"
+            },
+            {
+              "name": "P8",
+              "units": "uV"
+            },
+            {
+              "name": "P10",
+              "units": "uV"
+            },
+            {
+              "name": "O1",
+              "units": "uV"
+            },
+            {
+              "name": "O2",
+              "units": "uV"
+            },
+            {
+              "name": "AF7",
+              "units": "uV"
+            },
+            {
+              "name": "AF3",
+              "units": "uV"
+            },
+            {
+              "name": "AF4",
+              "units": "uV"
+            },
+            {
+              "name": "AF8",
+              "units": "uV"
+            },
+            {
+              "name": "F5",
+              "units": "uV"
+            },
+            {
+              "name": "F1",
+              "units": "uV"
+            },
+            {
+              "name": "F2",
+              "units": "uV"
+            },
+            {
+              "name": "F6",
+              "units": "uV"
+            },
+            {
+              "name": "FC3",
+              "units": "uV"
+            },
+            {
+              "name": "FCz",
+              "units": "uV"
+            },
+            {
+              "name": "FC4",
+              "units": "uV"
+            },
+            {
+              "name": "C5",
+              "units": "uV"
+            },
+            {
+              "name": "C1",
+              "units": "uV"
+            },
+            {
+              "name": "C2",
+              "units": "uV"
+            },
+            {
+              "name": "C6",
+              "units": "uV"
+            },
+            {
+              "name": "CP3",
+              "units": "uV"
+            },
+            {
+              "name": "CP4",
+              "units": "uV"
+            },
+            {
+              "name": "P5",
+              "units": "uV"
+            },
+            {
+              "name": "P1",
+              "units": "uV"
+            },
+            {
+              "name": "P2",
+              "units": "uV"
+            },
+            {
+              "name": "P6",
+              "units": "uV"
+            },
+            {
+              "name": "PO5",
+              "units": "uV"
+            },
+            {
+              "name": "PO3",
+              "units": "uV"
+            },
+            {
+              "name": "PO4",
+              "units": "uV"
+            },
+            {
+              "name": "PO6",
+              "units": "uV"
+            },
+            {
+              "name": "FT7",
+              "units": "uV"
+            },
+            {
+              "name": "FT8",
+              "units": "uV"
+            },
+            {
+              "name": "TP7",
+              "units": "uV"
+            },
+            {
+              "name": "TP8",
+              "units": "uV"
+            },
+            {
+              "name": "PO7",
+              "units": "uV"
+            },
+            {
+              "name": "PO8",
+              "units": "uV"
+            },
+            {
+              "name": "POz",
+              "units": "uV"
+            }
+          ]
+        }
+      },
+      "ECG": {
+        "channel_indices": [
+          64
+        ],
+        "correction": {
+          "RecordType": "ECG",
+          "PresetVersion": "0.0.3",
+          "SamplingFrequency": 1000.0,
+          "EffectiveSamplingFrequency": 1000.0090763342686,
+          "Manufacturer": "ANTNeuro",
+          "Channels": [
+            {
+              "name": "ECG",
+              "units": "mV"
+            }
+          ]
+        }
+      },
+      "RESP": {
+        "channel_indices": [
+          65
+        ],
+        "correction": {
+          "RecordType": "Respiration",
+          "PresetVersion": "0.0.3",
+          "SamplingFrequency": 1000.0,
+          "EffectiveSamplingFrequency": 1000.0090763342686,
+          "Manufacturer": "ANTNeuro",
+          "Channels": [
+            {
+              "name": "Resp",
+              "units": "AU"
+            }
+          ]
+        }
+      },
+      "GSR": {
+        "channel_indices": [
+          66
+        ],
+        "correction": {
+          "RecordType": "GSR",
+          "PresetVersion": "0.0.3",
+          "SamplingFrequency": 1000.0,
+          "EffectiveSamplingFrequency": 1000.0090763342686,
+          "Manufacturer": "ANTNeuro",
+          "Channels": [
+            {
+              "name": "GSR",
+              "units": "uV"
+            }
+          ]
+        }
+      },
+      "Gaze": {
+        "channel_ranges": [
+          67,
+          82
+        ],
+        "correction": {
+          "RecordType": "Oculometry",
+          "PresetVersion": "0.0.3",
+          "SamplingFrequency": 200.0,
+          "EffectiveSamplingFrequency": 166.35764886442277,
+          "Manufacturer": "Pupil_Labs",
+          "Channels": [
+            {
+              "name": "gaze_x",
+              "units": "pixel"
+            },
+            {
+              "name": "gaze_y",
+              "units": "pixel"
+            },
+            {
+              "name": "pupildiameter_left",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcenterx_left",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcentery_left",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcenterz_left",
+              "units": "mm"
+            },
+            {
+              "name": "opticalaxisx_left",
+              "units": "unitless"
+            },
+            {
+              "name": "opticalaxisy_left",
+              "units": "unitless"
+            },
+            {
+              "name": "opticalaxisz_left",
+              "units": "unitless"
+            },
+            {
+              "name": "pupildiameter_right",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcenterx_right",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcentery_right",
+              "units": "mm"
+            },
+            {
+              "name": "eyeballcenterz_right",
+              "units": "mm"
+            },
+            {
+              "name": "opticalaxisx_right",
+              "units": "unitless"
+            },
+            {
+              "name": "opticalaxisy_right",
+              "units": "unitless"
+            },
+            {
+              "name": "opticalaxisz_right",
+              "units": "unitless"
+            }
+          ],
+          "OnsetSeconds": 0.002
+        }
+      },
+      "BDF Annotations": {
+        "channel_indices": [
+          83
+        ],
+        "_note": "TAL annotations parsed separately"
+      }
+    }
+  },
+  "TotalSamples": 212323,
+  "export_provenance": {
+    "bdf+": {
+      "schema_version": 2,
+      "writer": "BrainOsTools",
+      "writer_version": "0.4.4",
+      "pyedflib_version": "0.1.42",
+      "file_format": "bdf+",
+      "bit_depth": 24,
+      "range_policy": "exact_final_range",
+      "margin_fraction": 0.0,
+      "sampling_rate_mode": "effective",
+      "requested_max_lsb": null,
+      "digital_min": -8388608,
+      "digital_max": 8388607,
+      "channels": [
+        {
+          "source_label": "Fp1",
+          "source_min": -1790.8398060107118,
+          "source_max": 233.92998780786905,
+          "prepared_min": -1790.8398060107118,
+          "prepared_max": 233.92998780786905,
+          "padding_sample_count": 677,
+          "padding_value": -124.72012452603141
+        },
+        {
+          "source_label": "Fp2",
+          "source_min": -5739.150083841687,
+          "source_max": -3745.610188835275,
+          "prepared_min": -5739.150083841687,
+          "prepared_max": -3745.610188835275,
+          "padding_sample_count": 677,
+          "padding_value": -4128.510148046026
+        },
+        {
+          "source_label": "F9",
+          "source_min": -7572.189909430141,
+          "source_max": -5786.160171364556,
+          "prepared_min": -7572.189909430141,
+          "prepared_max": -5786.160171364556,
+          "padding_sample_count": 677,
+          "padding_value": -6012.710025945307
+        },
+        {
+          "source_label": "F7",
+          "source_min": -6692.9203194952215,
+          "source_max": -4608.540000000001,
+          "prepared_min": -6692.9203194952215,
+          "prepared_max": -4608.540000000001,
+          "padding_sample_count": 677,
+          "padding_value": -4807.310075438624
+        },
+        {
+          "source_label": "F3",
+          "source_min": -7035.560057801012,
+          "source_max": -4914.74,
+          "prepared_min": -7035.560057801012,
+          "prepared_max": -4914.74,
+          "padding_sample_count": 677,
+          "padding_value": -5085.380376477264
+        },
+        {
+          "source_label": "Fz",
+          "source_min": 28431.317495421026,
+          "source_max": 55468.03,
+          "prepared_min": 28431.317495421026,
+          "prepared_max": 55468.03,
+          "padding_sample_count": 677,
+          "padding_value": 45303.998145418656
+        },
+        {
+          "source_label": "F4",
+          "source_min": -2930.0599524468157,
+          "source_max": -1084.09,
+          "prepared_min": -2930.0599524468157,
+          "prepared_max": -1084.09,
+          "padding_sample_count": 677,
+          "padding_value": -1279.470095106369
+        },
+        {
+          "source_label": "F8",
+          "source_min": -6610.910009375811,
+          "source_max": -4797.47,
+          "prepared_min": -6610.910009375811,
+          "prepared_max": -4797.47,
+          "padding_sample_count": 677,
+          "padding_value": -5063.090119948394
+        },
+        {
+          "source_label": "F10",
+          "source_min": -8945.870371709487,
+          "source_max": -7087.270198588979,
+          "prepared_min": -8945.870371709487,
+          "prepared_max": -7087.270198588979,
+          "padding_sample_count": 677,
+          "padding_value": -7465.170267768518
+        },
+        {
+          "source_label": "FC5",
+          "source_min": -11329.479994328021,
+          "source_max": -9218.560125821836,
+          "prepared_min": -11329.479994328021,
+          "prepared_max": -9218.560125821836,
+          "padding_sample_count": 677,
+          "padding_value": -9365.110103126173
+        },
+        {
+          "source_label": "FC1",
+          "source_min": 25805.611841080303,
+          "source_max": 51219.72713058217,
+          "prepared_min": 25805.611841080303,
+          "prepared_max": 51219.72713058217,
+          "padding_sample_count": 677,
+          "padding_value": 41053.887616019114
+        },
+        {
+          "source_label": "FC2",
+          "source_min": 5301.829715749008,
+          "source_max": 6888.77,
+          "prepared_min": 5301.829715749008,
+          "prepared_max": 6888.77,
+          "padding_sample_count": 677,
+          "padding_value": 6813.469718376381
+        },
+        {
+          "source_label": "FC6",
+          "source_min": 4382.0899257346755,
+          "source_max": 6565.009999999999,
+          "prepared_min": 4382.0899257346755,
+          "prepared_max": 6565.009999999999,
+          "padding_sample_count": 677,
+          "padding_value": 6366.919669737373
+        },
+        {
+          "source_label": "T9",
+          "source_min": -14028.559994313717,
+          "source_max": -12113.520032079223,
+          "prepared_min": -14028.559994313717,
+          "prepared_max": -12113.520032079223,
+          "padding_sample_count": 677,
+          "padding_value": -12349.800082612044
+        },
+        {
+          "source_label": "T7",
+          "source_min": 3679.189917778368,
+          "source_max": 6307.46,
+          "prepared_min": 3679.189917778368,
+          "prepared_max": 6307.46,
+          "padding_sample_count": 677,
+          "padding_value": 6258.179635454991
+        },
+        {
+          "source_label": "C3",
+          "source_min": -1742.0004406851797,
+          "source_max": -155.47000000000048,
+          "prepared_min": -1742.0004406851797,
+          "prepared_max": -155.47000000000048,
+          "padding_sample_count": 677,
+          "padding_value": -454.4405611235243
+        },
+        {
+          "source_label": "C4",
+          "source_min": 10926.529950046299,
+          "source_max": 13775.44,
+          "prepared_min": 10926.529950046299,
+          "prepared_max": 13775.44,
+          "padding_sample_count": 677,
+          "padding_value": 13694.299586722707
+        },
+        {
+          "source_label": "T8",
+          "source_min": -8804.260195747625,
+          "source_max": -6735.900319880266,
+          "prepared_min": -8804.260195747625,
+          "prepared_max": -6735.900319880266,
+          "padding_sample_count": 677,
+          "padding_value": -6907.800136363514
+        },
+        {
+          "source_label": "T10",
+          "source_min": -14565.280405317566,
+          "source_max": -12090.330071892144,
+          "prepared_min": -14565.280405317566,
+          "prepared_max": -12090.330071892144,
+          "padding_sample_count": 677,
+          "padding_value": -12440.500451058173
+        },
+        {
+          "source_label": "CP5",
+          "source_min": -1811.0101271098927,
+          "source_max": -229.42023181439816,
+          "prepared_min": -1811.0101271098927,
+          "prepared_max": -229.42023181439816,
+          "padding_sample_count": 677,
+          "padding_value": -298.61010708273085
+        },
+        {
+          "source_label": "CP1",
+          "source_min": -3943.6099110847663,
+          "source_max": -1098.2600000000002,
+          "prepared_min": -3943.6099110847663,
+          "prepared_max": -1098.2600000000002,
+          "padding_sample_count": 677,
+          "padding_value": -2364.000041515234
+        },
+        {
+          "source_label": "CP2",
+          "source_min": 4842.9901418000545,
+          "source_max": 12383.10920338328,
+          "prepared_min": 4842.9901418000545,
+          "prepared_max": 12383.10920338328,
+          "padding_sample_count": 677,
+          "padding_value": 8468.649349434932
+        },
+        {
+          "source_label": "CP6",
+          "source_min": 6875.439982851743,
+          "source_max": 8698.779569380258,
+          "prepared_min": 6875.439982851743,
+          "prepared_max": 8698.779569380258,
+          "padding_sample_count": 677,
+          "padding_value": 7931.709732485398
+        },
+        {
+          "source_label": "P9",
+          "source_min": 19.709991676210972,
+          "source_max": 4160.96,
+          "prepared_min": 19.709991676210972,
+          "prepared_max": 4160.96,
+          "padding_sample_count": 677,
+          "padding_value": 1161.6299029308502
+        },
+        {
+          "source_label": "P7",
+          "source_min": -5372.540267078892,
+          "source_max": -2457.7104853123715,
+          "prepared_min": -5372.540267078892,
+          "prepared_max": -2457.7104853123715,
+          "padding_sample_count": 677,
+          "padding_value": -4126.940446079996
+        },
+        {
+          "source_label": "P3",
+          "source_min": -509.88031523289135,
+          "source_max": 3679.55,
+          "prepared_min": -509.88031523289135,
+          "prepared_max": 3679.55,
+          "padding_sample_count": 677,
+          "padding_value": 1735.5296742939756
+        },
+        {
+          "source_label": "Pz",
+          "source_min": 1354.2903598851178,
+          "source_max": 6617.46,
+          "prepared_min": 1354.2903598851178,
+          "prepared_max": 6617.46,
+          "padding_sample_count": 677,
+          "padding_value": 2579.980064568523
+        },
+        {
+          "source_label": "P4",
+          "source_min": -5241.4606526023545,
+          "source_max": 2295.7390541536843,
+          "prepared_min": -5241.4606526023545,
+          "prepared_max": 2295.7390541536843,
+          "padding_sample_count": 677,
+          "padding_value": -2636.490030637505
+        },
+        {
+          "source_label": "P8",
+          "source_min": -1946.7403486003484,
+          "source_max": 2847.6595887525436,
+          "prepared_min": -1946.7403486003484,
+          "prepared_max": 2847.6595887525436,
+          "padding_sample_count": 677,
+          "padding_value": -742.5405343537647
+        },
+        {
+          "source_label": "P10",
+          "source_min": -788.3104116726173,
+          "source_max": 3374.29,
+          "prepared_min": -788.3104116726173,
+          "prepared_max": 3374.29,
+          "padding_sample_count": 677,
+          "padding_value": 865.0098716455617
+        },
+        {
+          "source_label": "O1",
+          "source_min": 15953.339774500711,
+          "source_max": 21086.67,
+          "prepared_min": 15953.339774500711,
+          "prepared_max": 21086.67,
+          "padding_sample_count": 677,
+          "padding_value": 18294.709389984568
+        },
+        {
+          "source_label": "O2",
+          "source_min": 21386.12929343756,
+          "source_max": 28910.38,
+          "prepared_min": 21386.12929343756,
+          "prepared_max": 28910.38,
+          "padding_sample_count": 677,
+          "padding_value": 23247.179610605217
+        },
+        {
+          "source_label": "AF7",
+          "source_min": 4337.589808592189,
+          "source_max": 6704.72,
+          "prepared_min": 4337.589808592189,
+          "prepared_max": 6704.72,
+          "padding_sample_count": 677,
+          "padding_value": 6307.759672842006
+        },
+        {
+          "source_label": "AF3",
+          "source_min": -7013.790280463117,
+          "source_max": -4959.310248941794,
+          "prepared_min": -7013.790280463117,
+          "prepared_max": -4959.310248941794,
+          "padding_sample_count": 677,
+          "padding_value": -5122.32025382878
+        },
+        {
+          "source_label": "AF4",
+          "source_min": -7102.689971466659,
+          "source_max": -5241.52,
+          "prepared_min": -7102.689971466659,
+          "prepared_max": -5241.52,
+          "padding_sample_count": 677,
+          "padding_value": -5439.870000080467
+        },
+        {
+          "source_label": "AF8",
+          "source_min": 2211.200205343974,
+          "source_max": 4081.1601316630918,
+          "prepared_min": 2211.200205343974,
+          "prepared_max": 4081.1601316630918,
+          "padding_sample_count": 677,
+          "padding_value": 3659.590342844149
+        },
+        {
+          "source_label": "F5",
+          "source_min": -7136.39,
+          "source_max": -5032.42,
+          "prepared_min": -7136.39,
+          "prepared_max": -5032.42,
+          "padding_sample_count": 677,
+          "padding_value": -5204.460012850763
+        },
+        {
+          "source_label": "F1",
+          "source_min": -5655.439876313799,
+          "source_max": -3457.990152618894,
+          "prepared_min": -5655.439876313799,
+          "prepared_max": -3457.990152618894,
+          "padding_sample_count": 677,
+          "padding_value": -3627.880011292101
+        },
+        {
+          "source_label": "F2",
+          "source_min": -3821.1998723816796,
+          "source_max": -1994.810210679186,
+          "prepared_min": -3821.1998723816796,
+          "prepared_max": -1994.810210679186,
+          "padding_sample_count": 677,
+          "padding_value": -2128.5601026076138
+        },
+        {
+          "source_label": "F6",
+          "source_min": -5982.64,
+          "source_max": -4509.760103390224,
+          "prepared_min": -5982.64,
+          "prepared_max": -4509.760103390224,
+          "padding_sample_count": 677,
+          "padding_value": -4727.780101429231
+        },
+        {
+          "source_label": "FC3",
+          "source_min": -6201.230316041727,
+          "source_max": -3567.94,
+          "prepared_min": -6201.230316041727,
+          "prepared_max": -3567.94,
+          "padding_sample_count": 677,
+          "padding_value": -3694.0502046013003
+        },
+        {
+          "source_label": "FCz",
+          "source_min": -6579.289980607032,
+          "source_max": -5457.689937860961,
+          "prepared_min": -6579.289980607032,
+          "prepared_max": -5457.689937860961,
+          "padding_sample_count": 677,
+          "padding_value": -5485.509927744861
+        },
+        {
+          "source_label": "FC4",
+          "source_min": -2615.599780480253,
+          "source_max": -701.3201191371749,
+          "prepared_min": -2615.599780480253,
+          "prepared_max": -701.3201191371749,
+          "padding_sample_count": 677,
+          "padding_value": -778.3901721780401
+        },
+        {
+          "source_label": "C5",
+          "source_min": 1104.1098300403253,
+          "source_max": 3175.36,
+          "prepared_min": 1104.1098300403253,
+          "prepared_max": 3175.36,
+          "padding_sample_count": 677,
+          "padding_value": 3079.0195675837736
+        },
+        {
+          "source_label": "C1",
+          "source_min": -35.01986455320517,
+          "source_max": 2048.94,
+          "prepared_min": -35.01986455320517,
+          "prepared_max": 2048.94,
+          "padding_sample_count": 677,
+          "padding_value": 2016.1599835562695
+        },
+        {
+          "source_label": "C2",
+          "source_min": 780.4700150080574,
+          "source_max": 3490.6600000000003,
+          "prepared_min": 780.4700150080574,
+          "prepared_max": 3490.6600000000003,
+          "padding_sample_count": 677,
+          "padding_value": 3105.319877309142
+        },
+        {
+          "source_label": "C6",
+          "source_min": 4816.579591488814,
+          "source_max": 7258.4,
+          "prepared_min": 4816.579591488814,
+          "prepared_max": 7258.4,
+          "padding_sample_count": 677,
+          "padding_value": 7059.469591440534
+        },
+        {
+          "source_label": "CP3",
+          "source_min": 3526.7500300109405,
+          "source_max": 4625.93,
+          "prepared_min": 3526.7500300109405,
+          "prepared_max": 4625.93,
+          "padding_sample_count": 677,
+          "padding_value": 3971.0399219685746
+        },
+        {
+          "source_label": "CP4",
+          "source_min": 1196.8302819323708,
+          "source_max": 6471.01,
+          "prepared_min": 1196.8302819323708,
+          "prepared_max": 6471.01,
+          "padding_sample_count": 677,
+          "padding_value": 3557.6395825838795
+        },
+        {
+          "source_label": "P5",
+          "source_min": 4167.760561216507,
+          "source_max": 9389.099430959786,
+          "prepared_min": 4167.760561216507,
+          "prepared_max": 9389.099430959786,
+          "padding_sample_count": 677,
+          "padding_value": 6146.699760713563
+        },
+        {
+          "source_label": "P1",
+          "source_min": -5118.469779306399,
+          "source_max": -264.4802389876986,
+          "prepared_min": -5118.469779306399,
+          "prepared_max": -264.4802389876986,
+          "padding_sample_count": 677,
+          "padding_value": -2282.5202745254205
+        },
+        {
+          "source_label": "P2",
+          "source_min": -7789.109451604453,
+          "source_max": -1438.4500000000005,
+          "prepared_min": -7789.109451604453,
+          "prepared_max": -1438.4500000000005,
+          "padding_sample_count": 677,
+          "padding_value": -6023.730393122458
+        },
+        {
+          "source_label": "P6",
+          "source_min": 7831.77966968296,
+          "source_max": 12822.209731406554,
+          "prepared_min": 7831.77966968296,
+          "prepared_max": 12822.209731406554,
+          "padding_sample_count": 677,
+          "padding_value": 10302.69957518575
+        },
+        {
+          "source_label": "PO5",
+          "source_min": -2528.6405221832106,
+          "source_max": 1142.8599491222474,
+          "prepared_min": -2528.6405221832106,
+          "prepared_max": 1142.8599491222474,
+          "padding_sample_count": 677,
+          "padding_value": -585.6201008617934
+        },
+        {
+          "source_label": "PO3",
+          "source_min": 10710.790495389132,
+          "source_max": 15473.16,
+          "prepared_min": 10710.790495389132,
+          "prepared_max": 15473.16,
+          "padding_sample_count": 677,
+          "padding_value": 12722.559549586746
+        },
+        {
+          "source_label": "PO4",
+          "source_min": 735.2605188465425,
+          "source_max": 8442.16,
+          "prepared_min": 735.2605188465425,
+          "prepared_max": 8442.16,
+          "padding_sample_count": 677,
+          "padding_value": 3814.4594576179657
+        },
+        {
+          "source_label": "PO6",
+          "source_min": -2234.190288364309,
+          "source_max": 5332.639033377113,
+          "prepared_min": -2234.190288364309,
+          "prepared_max": 5332.639033377113,
+          "padding_sample_count": 677,
+          "padding_value": 749.7793970811007
+        },
+        {
+          "source_label": "FT7",
+          "source_min": -2014.6302896344837,
+          "source_max": 314.21999999999997,
+          "prepared_min": -2014.6302896344837,
+          "prepared_max": 314.21999999999997,
+          "padding_sample_count": 677,
+          "padding_value": 161.85980515240456
+        },
+        {
+          "source_label": "FT8",
+          "source_min": -8033.370149604686,
+          "source_max": -5934.310275364534,
+          "prepared_min": -8033.370149604686,
+          "prepared_max": -5934.310275364534,
+          "padding_sample_count": 677,
+          "padding_value": -6176.61022133292
+        },
+        {
+          "source_label": "TP7",
+          "source_min": 9420.059504595964,
+          "source_max": 11710.71,
+          "prepared_min": 9420.059504595964,
+          "prepared_max": 11710.71,
+          "padding_sample_count": 677,
+          "padding_value": 11519.809539384218
+        },
+        {
+          "source_label": "TP8",
+          "source_min": -4402.280338690897,
+          "source_max": -2138.31,
+          "prepared_min": -4402.280338690897,
+          "prepared_max": -2138.31,
+          "padding_sample_count": 677,
+          "padding_value": -3268.2601665371753
+        },
+        {
+          "source_label": "PO7",
+          "source_min": 11473.89958915416,
+          "source_max": 14936.2,
+          "prepared_min": 11473.89958915416,
+          "prepared_max": 14936.2,
+          "padding_sample_count": 677,
+          "padding_value": 13133.51978923403
+        },
+        {
+          "source_label": "PO8",
+          "source_min": 1093.2306441557814,
+          "source_max": 30115.199542023514,
+          "prepared_min": 1093.2306441557814,
+          "prepared_max": 30115.199542023514,
+          "padding_sample_count": 677,
+          "padding_value": 3795.1103624558687
+        },
+        {
+          "source_label": "POz",
+          "source_min": -2254.1904475475817,
+          "source_max": 1011.7899762530911,
+          "prepared_min": -2254.1904475475817,
+          "prepared_max": 1011.7899762530911,
+          "padding_sample_count": 677,
+          "padding_value": -709.0103352204759
+        },
+        {
+          "source_label": "ECG",
+          "source_min": -11166.357876322143,
+          "source_max": -6070.85625484027,
+          "prepared_min": -11166.357876322143,
+          "prepared_max": -6070.85625484027,
+          "padding_sample_count": 677,
+          "padding_value": -7275.968283770578
+        },
+        {
+          "source_label": "Resp",
+          "source_min": -12476.662968132674,
+          "source_max": 5428.963629609443,
+          "prepared_min": -12476.662968132674,
+          "prepared_max": 5428.963629609443,
+          "padding_sample_count": 677,
+          "padding_value": 2866.461848830691
+        },
+        {
+          "source_label": "GSR",
+          "source_min": -1916428.7588610507,
+          "source_max": -1780802.1117983528,
+          "prepared_min": -1916428.7588610507,
+          "prepared_max": -1780802.1117983528,
+          "padding_sample_count": 677,
+          "padding_value": -1819345.4374632502
+        },
+        {
+          "source_label": "gaze_x",
+          "source_min": -12.033805474305396,
+          "source_max": 1544.7897318008322,
+          "prepared_min": -12.033805474305396,
+          "prepared_max": 1544.7897318008322,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 1401.795136683222
+        },
+        {
+          "source_label": "gaze_y",
+          "source_min": -94.96154764292547,
+          "source_max": 1183.1010096790142,
+          "prepared_min": -94.96154764292547,
+          "prepared_max": 1183.1010096790142,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 528.8494116067118
+        },
+        {
+          "source_label": "pupildiameter_left",
+          "source_min": 1.5158100357629083,
+          "source_max": 4.887339107094235,
+          "prepared_min": 1.5158100357629083,
+          "prepared_max": 4.887339107094235,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 3.654479919792647
+        },
+        {
+          "source_label": "eyeballcenterx_left",
+          "source_min": -34.7187499050051,
+          "source_max": -29.65625009499491,
+          "prepared_min": -34.7187499050051,
+          "prepared_max": -29.65625009499491,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": -31.218750284984726
+        },
+        {
+          "source_label": "eyeballcentery_left",
+          "source_min": 4.0625,
+          "source_max": 12.499999219551636,
+          "prepared_min": 4.0625,
+          "prepared_max": 12.499999219551636,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 7.468750119209297
+        },
+        {
+          "source_label": "eyeballcenterz_left",
+          "source_min": -39.56249939543005,
+          "source_max": -31.531250015762453,
+          "prepared_min": -39.56249939543005,
+          "prepared_max": -31.531250015762453,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": -34.46875037460627
+        },
+        {
+          "source_label": "opticalaxisx_left",
+          "source_min": -0.705059012000621,
+          "source_max": 0.801837191636872,
+          "prepared_min": -0.705059012000621,
+          "prepared_max": 0.801837191636872,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.6645902459136396
+        },
+        {
+          "source_label": "opticalaxisy_left",
+          "source_min": -0.6402538377163314,
+          "source_max": 0.6852000519563587,
+          "prepared_min": -0.6402538377163314,
+          "prepared_max": 0.6852000519563587,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.06781451882305854
+        },
+        {
+          "source_label": "opticalaxisz_left",
+          "source_min": 0.5971734648496785,
+          "source_max": 0.9999873587463711,
+          "prepared_min": 0.5971734648496785,
+          "prepared_max": 0.9999873587463711,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.7441242954819974
+        },
+        {
+          "source_label": "pupildiameter_right",
+          "source_min": 1.3045152881260684,
+          "source_max": 4.89101356308243,
+          "prepared_min": 1.3045152881260684,
+          "prepared_max": 4.89101356308243,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 3.8143289153460804
+        },
+        {
+          "source_label": "eyeballcenterx_right",
+          "source_min": 28.343750065192584,
+          "source_max": 33.28124971315263,
+          "prepared_min": 28.343750065192584,
+          "prepared_max": 33.28124971315263,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 31.499999947845932
+        },
+        {
+          "source_label": "eyeballcentery_right",
+          "source_min": 2.4687500000000027,
+          "source_max": 11.562501108273931,
+          "prepared_min": 2.4687500000000027,
+          "prepared_max": 11.562501108273931,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 3.8125011082739326
+        },
+        {
+          "source_label": "eyeballcenterz_right",
+          "source_min": -40.59374973122774,
+          "source_max": -31.90625024040045,
+          "prepared_min": -40.59374973122774,
+          "prepared_max": -31.90625024040045,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": -38.59374985270201
+        },
+        {
+          "source_label": "opticalaxisx_right",
+          "source_min": -0.8211048181117065,
+          "source_max": 0.671148281271236,
+          "prepared_min": -0.8211048181117065,
+          "prepared_max": 0.671148281271236,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.5510290196853291
+        },
+        {
+          "source_label": "opticalaxisy_right",
+          "source_min": -0.6402538348440429,
+          "source_max": 0.6690320635206141,
+          "prepared_min": -0.6402538348440429,
+          "prepared_max": 0.6690320635206141,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.07463306735188173
+        },
+        {
+          "source_label": "opticalaxisz_right",
+          "source_min": 0.5577441054420536,
+          "source_max": 0.9999845527391764,
+          "prepared_min": 0.5577441054420536,
+          "prepared_max": 0.9999845527391764,
+          "source_nan_count": 177716,
+          "nan_omitted_count": 177716,
+          "padding_sample_count": 751,
+          "padding_value": 0.8311419324172695
+        }
+      ]
+    }
+  },
+  "container_formats": [
+    "BDF+"
+  ]
+}

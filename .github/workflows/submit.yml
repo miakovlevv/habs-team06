@@ -1,0 +1,99 @@
+name: HABS
+
+# Manual only. A push does not spend a GPU: you run this when you mean to,
+# from the Actions tab -- "HABS" in the sidebar, then "Run workflow".
+#
+# Your team has one job running at a time, so an accidental submission is a
+# submission somebody is waiting behind. Try your code against sample/ first:
+#   habs run --data ./sample --out ./out
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  # ─────────────────────────────────────────────────────────────────────
+  #  PASTE YOUR TEAM KEY HERE, between the quotes, replacing this line.
+  #  It is the one line HABS sent you, and it looks like this:
+  #       xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  #  It is not a password. It only works from this repository, on main.
+  # ─────────────────────────────────────────────────────────────────────
+  HABS_KEY: "PASTE-YOUR-TEAM-KEY-HERE"
+
+  # The same for every team. Leave these alone.
+  HABS_TENANT_ID: 6fc0e479-449c-4700-b89c-7c4848058e30
+  HABS_STORAGE: sthabshackweu
+  # Always current. Pinning a version would mean editing 35 repositories
+  # every time the client changes.
+  HABS_CLIENT: "habs-hack[storage] @ git+https://github.com/HABS-BRAIN/habs-hack@main"
+
+jobs:
+  # Two jobs, not one, so that the two ways a run can fail look different.
+  # A red cross on "build" is your requirements.txt; a red cross on "run" is
+  # your code. Finding that out used to mean reading to the bottom of a log.
+  build:
+    name: build your image
+    # The template itself has no key and no identity of its own.
+    if: github.repository != 'HABS-BRAIN/habs-hackathon-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      job: ${{ steps.submit.outputs.job }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check your team key is filled in
+        run: |
+          case "$HABS_KEY" in
+            ""|PASTE-YOUR-TEAM-KEY-HERE)
+              echo "::error title=No team key::Open .github/workflows/submit.yml and put the line HABS sent you on the HABS_KEY line."
+              exit 1 ;;
+          esac
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ env.HABS_KEY }}
+          tenant-id: ${{ env.HABS_TENANT_ID }}
+          # Your identity has no role on the subscription and the client never
+          # needs one -- it reaches your storage by account name. Naming a
+          # subscription here would only print it into a public log.
+          allow-no-subscriptions: true
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet "$HABS_CLIENT"
+
+      # Uploads this commit and waits only for the image. Returns in a minute
+      # or two with the pip log, and hands the job id to the next job.
+      - id: submit
+        run: habs submit --sha "${{ github.sha }}" --until built
+
+  run:
+    name: run on a GPU
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      # No checkout: what runs on the GPU is the image the job above built,
+      # not whatever this runner happens to have on disk.
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ env.HABS_KEY }}
+          tenant-id: ${{ env.HABS_TENANT_ID }}
+          allow-no-subscriptions: true
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet "$HABS_CLIENT"
+
+      # Waits in the queue, prints your own output as it happens, and finishes
+      # the way your job finished. The summary at the top of this run says what
+      # it cost and what it wrote. If this step gives up waiting, your job is
+      # still running -- `habs status` picks it back up.
+      - run: habs watch "${{ needs.build.outputs.job }}"

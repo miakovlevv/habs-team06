@@ -1,0 +1,10 @@
+# Packages for the notebooks, including the Qt-based interactive viewer.
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.1
+mne==1.13.2
+scikit-learn==1.9.1
+matplotlib==3.10.8
+pyedflib==0.1.42
+ipykernel==7.2.0
+PySide6==6.10.2
