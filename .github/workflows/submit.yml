@@ -20,7 +20,7 @@ env:
   #       xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   #  It is not a password. It only works from this repository, on main.
   # ─────────────────────────────────────────────────────────────────────
-  HABS_KEY: "PASTE-YOUR-TEAM-KEY-HERE"
+  HABS_KEY: "7754eddf-11c9-432d-a2f7-0f67c399c714"
 
   # The same for every team. Leave these alone.
   HABS_TENANT_ID: 6fc0e479-449c-4700-b89c-7c4848058e30
