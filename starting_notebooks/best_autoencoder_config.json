@@ -1,0 +1,56 @@
+{
+  "non supervisé": {
+    "modalities": [
+      "ECG",
+      "GSR",
+      "RESP",
+      "PUPIL"
+    ],
+    "lag_ECG": 1,
+    "lag_GSR": 3,
+    "lag_RESP": 2,
+    "lag_PUPIL": 0,
+    "hidden": 32,
+    "depth": 1,
+    "latent": 2,
+    "activation": "tanh",
+    "dropout": 0.3,
+    "input_noise": 0.1,
+    "modality_dropout": 0.0,
+    "w_translation": 0.0,
+    "w_alignment": 0.0,
+    "w_supervised": 0.0,
+    "lr": 0.03,
+    "weight_decay": 0.001,
+    "probe_on": "shared"
+  },
+  "tout réglage": {
+    "modalities": [
+      "ECG",
+      "GSR",
+      "RESP",
+      "PUPIL"
+    ],
+    "lag_ECG": 1,
+    "lag_GSR": 3,
+    "lag_RESP": 2,
+    "lag_PUPIL": 0,
+    "hidden": 32,
+    "depth": 1,
+    "latent": 2,
+    "activation": "tanh",
+    "dropout": 0.3,
+    "input_noise": 0.1,
+    "modality_dropout": 0.0,
+    "w_translation": 0.0,
+    "w_alignment": 0.0,
+    "w_supervised": 0.0,
+    "lr": 0.03,
+    "weight_decay": 0.001,
+    "probe_on": "shared"
+  },
+  "AUC test (section 7)": {
+    "AE optimisé · non supervisé": 0.576,
+    "AE optimisé · tout réglage": 0.565
+  }
+}
