@@ -19,7 +19,7 @@ import pandas as pd
 import mne
 
 from physio_utils import (DATA, FS, VERSION, bandpass, bdf_path, ecg_polarity,
-                          load_bdf, load_metadata, r_peaks)
+                          load_bdf, load_metadata, notch, r_peaks)
 
 mne.set_log_level("WARNING")
 
@@ -161,15 +161,6 @@ def remove_cardiac_ica(raw, ecg, n_components=30, seed=97):
     ica.apply(raw)
     raw.drop_channels(["ECG"])
     return idx
-
-
-def notch(x, freqs=(50.0, 100.0), fs=FS, q=30.0):
-    """Coupe-bande à phase nulle sur le secteur (50 Hz) et son harmonique."""
-    from scipy.signal import filtfilt, iirnotch
-    for f0 in freqs:
-        b, a = iirnotch(f0, q, fs)
-        x = filtfilt(b, a, x)
-    return x
 
 
 def _montage():
