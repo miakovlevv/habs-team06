@@ -20,6 +20,7 @@ import mne
 
 from physio_utils import (DATA, FS, VERSION, bandpass, bdf_path, ecg_polarity,
                           load_bdf, load_metadata, notch, r_peaks)
+from arousal_split import tertile_cuts  # noqa: F401  (définition commune haute / basse)
 
 mne.set_log_level("WARNING")
 
@@ -240,33 +241,13 @@ def surrogate_peaks(seg, seed=0):
 
 # --------------------------------------------------------------------------- activation haute / basse
 
-def tertile_cuts(scores, frac=1 / 3):
-    """Seuils (bas, haut) sur une échelle discrète, pour des groupes aussi proches que
-    possible d'un tiers chacun : « basse » = note ≤ bas, « haute » = note ≥ haut, bas < haut.
-
-    Avec des ex æquo, un quantile simple peut déborder (ex. P001 : q33 = 5 mettait 53 % des
-    vidéos en « basse »). Ici on choisit, parmi les notes possibles, le seuil dont la
-    proportion est la plus proche de `frac`. Retourne (nan, nan) si on ne peut pas séparer."""
-    s = np.asarray(scores, float)
-    s = s[~np.isnan(s)]
-    vals = np.unique(s)
-    if len(vals) < 2:
-        return np.nan, np.nan
-    p_lo = np.array([(s <= v).mean() for v in vals])
-    p_hi = np.array([(s >= v).mean() for v in vals])
-    lo = vals[np.argmin(np.abs(p_lo - frac))]
-    hi = vals[np.argmin(np.abs(p_hi - frac))]
-    if lo >= hi:   # échelle très peu utilisée : on garde au moins une note d'écart
-        hi = vals[vals > lo].min() if (vals > lo).any() else np.nan
-    return lo, hi
-
-
 def add_arousal_split(meta, by="subj"):
     """Ajoute la colonne `cond` (« basse » / « haute » / « moyenne » / « sans note »).
 
-    Version provisoire (en attendant la définition de Micha) : tiers bas et tiers haut des
-    notes de CHAQUE participant (tertile_cuts). Les seuils sont calculés sur les vidéos, pas
-    sur les battements, pour qu'une vidéo avec plus de battements ne pèse pas plus."""
+    Définition commune à l'équipe (arousal_split.py, justifiée dans arousal_definition.ipynb) :
+    tiers bas et tiers haut des notes de CHAQUE participant (tertile_cuts). Les seuils sont
+    calculés sur les vidéos, pas sur les battements, pour qu'une vidéo avec plus de battements
+    ne pèse pas plus."""
     meta = meta.copy()
     vids = meta.drop_duplicates(["subj", "day", "trial"])
     cond = pd.Series("moyenne", index=meta.index)
