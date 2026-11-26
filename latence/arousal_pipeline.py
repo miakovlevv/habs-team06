@@ -57,8 +57,12 @@ def lowpass(x, hz, fs):
 
 
 def pupil_clean(sig):
-    """Mean of both eyes on the 1000 Hz timeline (stored at ~166 Hz) -> blinks removed -> 20 Hz. Returns (signal, missing)."""
-    x = sig[["pupildiameter_le", "pupildiameter_ri"]].mean(axis=1).to_numpy().copy()
+    """Mean of both eyes on the 1000 Hz timeline (stored at ~166 Hz) -> blinks removed -> 20 Hz. Returns (signal, missing).
+    No eye-tracking channels (e.g. P212): all NaN, missing = 1 (the quality rule then excludes the pupil)."""
+    cols = [c for c in ["pupildiameter_le", "pupildiameter_ri"] if c in sig.columns]
+    if not cols:
+        return np.full(len(sig) // int(FS / FG), np.nan), 1.0
+    x = sig[cols].mean(axis=1).to_numpy().copy()
     x[(x < 1.5) | (x > 9)] = np.nan
     s = pd.Series(x).interpolate(limit_area="inside")
     med = s.rolling(int(FS), center=True, min_periods=1).median()
@@ -185,7 +189,9 @@ def cmd_extract(args):
             if done.is_file() and not args.overwrite:
                 continue
             if not bdf_path("emotion-video", p, day, data=data, version=VERSION).is_file():
-                continue                                     # day not recorded for this participant
+                errors.append({"participant": p, "day": day, "error": "no emotion-video recording", "trace": ""})
+                print(f"[{k}/{len(subjects)}] {stem}: no emotion-video recording, skipped", flush=True)
+                continue
             t0 = time.time()
             try:
                 trials, part = extract_participant(p, day, data)
