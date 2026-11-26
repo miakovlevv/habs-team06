@@ -1,0 +1,435 @@
+participant,day,ok_GSR,ok_HR,ok_pupil,sets,reason,cohort
+P001,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P002,1,True,True,True,cohorts-12_day-1,,1.0
+P005,1,True,True,True,cohorts-12_day-1,,1.0
+P007,1,True,True,True,,< 5 high or low videos,1.0
+P008,1,True,True,True,cohorts-12_day-1,,1.0
+P009,1,True,True,False,cohorts-12_day-1,,1.0
+P013,1,True,True,True,cohorts-12_day-1,,1.0
+P014,1,True,True,True,cohorts-12_day-1,,1.0
+P016,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P017,1,False,True,True,,exploration set (dev20 / confirm20),1.0
+P018,1,False,False,True,,GSR flat (range < 0.05 uS),1.0
+P020,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P026,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P028,1,True,True,True,cohorts-12_day-1,,1.0
+P036,1,True,False,True,,< 5 high or low videos,1.0
+P038,1,True,True,True,cohorts-12_day-1,,1.0
+P040,1,True,False,True,,team split: rating SD < 1 or < 8 videos per group,
+P043,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P047,1,True,True,False,cohorts-12_day-1,,1.0
+P049,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P050,1,True,True,True,cohorts-12_day-1,,1.0
+P051,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P053,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P055,1,True,True,True,cohorts-12_day-1,,1.0
+P058,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P059,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P066,1,True,True,True,cohorts-12_day-1,,1.0
+P067,1,True,False,True,cohorts-12_day-1,,1.0
+P069,1,True,False,False,cohorts-12_day-1,,1.0
+P070,1,True,True,True,cohorts-12_day-1,,1.0
+P083,1,True,True,False,,< 5 high or low videos,1.0
+P084,1,False,False,True,,GSR flat (range < 0.05 uS),1.0
+P086,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P087,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P089,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P090,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P091,1,True,True,True,cohorts-12_day-1,,1.0
+P095,1,True,True,True,,< 5 high or low videos,1.0
+P096,1,False,True,True,,exploration set (dev20 / confirm20),1.0
+P097,1,False,True,True,,exploration set (dev20 / confirm20),1.0
+P100,1,True,True,True,cohorts-12_day-1,,1.0
+P101,1,True,True,True,cohorts-12_day-1,,1.0
+P102,1,True,True,True,cohorts-12_day-1,,1.0
+P108,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P109,1,True,True,True,cohorts-12_day-1,,1.0
+P110,1,True,True,True,cohorts-12_day-1,,1.0
+P111,1,True,True,True,,< 5 high or low videos,1.0
+P113,1,True,True,True,,< 5 high or low videos,1.0
+P115,1,True,True,True,cohorts-12_day-1,,1.0
+P117,1,True,True,True,,< 5 high or low videos,1.0
+P120,1,True,True,True,cohorts-12_day-1,,1.0
+P124,1,False,False,True,,GSR flat (range < 0.05 uS),1.0
+P126,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P128,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P129,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P131,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P137,1,True,True,True,,exploration set (dev20 / confirm20),1.0
+P138,1,True,True,True,,< 5 high or low videos,1.0
+P143,1,True,True,True,cohorts-12_day-1,,1.0
+P146,1,True,True,True,cohorts-12_day-1,,1.0
+P150,1,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P159,1,True,True,True,cohorts-12_day-1,,2.0
+P160,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P161,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P162,1,True,True,True,cohorts-12_day-1,,2.0
+P163,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P164,1,True,True,True,cohorts-12_day-1,,2.0
+P165,1,True,True,True,cohorts-12_day-1,,2.0
+P166,1,True,True,True,cohorts-12_day-1,,2.0
+P167,1,True,True,True,cohorts-12_day-1,,2.0
+P169,1,True,True,True,cohorts-12_day-1,,2.0
+P170,1,True,True,True,cohorts-12_day-1,,2.0
+P171,1,True,True,True,cohorts-12_day-1,,2.0
+P172,1,True,True,True,cohorts-12_day-1,,2.0
+P174,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P175,1,True,True,True,cohorts-12_day-1,,2.0
+P176,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P177,1,True,True,True,cohorts-12_day-1,,2.0
+P178,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P179,1,True,True,True,cohorts-12_day-1,,2.0
+P181,1,True,True,True,cohorts-12_day-1,,2.0
+P183,1,True,True,True,cohorts-12_day-1,,2.0
+P186,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P187,1,True,False,True,,exploration set (dev20 / confirm20),2.0
+P188,1,True,True,True,cohorts-12_day-1,,2.0
+P189,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P190,1,True,True,True,cohorts-12_day-1,,2.0
+P192,1,True,True,True,cohorts-12_day-1,,2.0
+P193,1,True,True,True,cohorts-12_day-1,,2.0
+P194,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P195,1,True,True,True,cohorts-12_day-1,,2.0
+P196,1,True,True,True,cohorts-12_day-1,,2.0
+P197,1,True,True,True,cohorts-12_day-1,,2.0
+P198,1,True,True,True,cohorts-12_day-1,,2.0
+P200,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P201,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P202,1,True,True,True,cohorts-12_day-1,,2.0
+P203,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P204,1,True,True,True,cohorts-12_day-1,,2.0
+P205,1,True,False,True,cohorts-12_day-1,,2.0
+P207,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P209,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P210,1,True,True,True,cohorts-12_day-1,,2.0
+P211,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P212,1,True,False,False,,exploration set (dev20 / confirm20),2.0
+P213,1,True,True,False,,team split: rating SD < 1 or < 8 videos per group,
+P214,1,True,True,True,cohorts-12_day-1,,2.0
+P215,1,True,True,True,cohorts-12_day-1,,2.0
+P216,1,True,True,True,cohorts-12_day-1,,2.0
+P217,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P218,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P219,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P220,1,True,False,True,cohorts-12_day-1,,2.0
+P223,1,True,True,True,cohorts-12_day-1,,2.0
+P224,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P225,1,True,False,True,cohorts-12_day-1,,2.0
+P226,1,True,True,True,cohorts-12_day-1,,2.0
+P227,1,True,True,True,cohorts-12_day-1,,2.0
+P228,1,True,True,True,cohorts-12_day-1,,2.0
+P229,1,True,True,False,cohorts-12_day-1,,2.0
+P230,1,True,True,True,cohorts-12_day-1,,2.0
+P231,1,True,True,True,cohorts-12_day-1,,2.0
+P233,1,True,True,True,cohorts-12_day-1,,2.0
+P235,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P237,1,True,True,True,cohorts-12_day-1,,2.0
+P238,1,True,True,True,cohorts-12_day-1,,2.0
+P239,1,True,True,True,cohorts-12_day-1,,2.0
+P240,1,True,True,True,cohorts-12_day-1,,2.0
+P242,1,True,True,True,cohorts-12_day-1,,2.0
+P243,1,True,True,True,cohorts-12_day-1,,2.0
+P244,1,True,True,True,cohorts-12_day-1,,2.0
+P246,1,True,True,True,cohorts-12_day-1,,2.0
+P247,1,True,True,True,cohorts-12_day-1,,2.0
+P248,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P249,1,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P250,1,True,False,True,cohorts-12_day-1,,2.0
+P251,1,True,True,True,cohorts-12_day-1,,2.0
+P252,1,True,True,True,cohorts-12_day-1,,2.0
+P253,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P254,1,True,True,True,cohorts-12_day-1,,2.0
+P255,1,True,True,True,cohorts-12_day-1,,2.0
+P256,1,True,True,True,cohorts-12_day-1,,2.0
+P257,1,True,True,True,cohorts-12_day-1,,2.0
+P258,1,True,True,True,cohorts-12_day-1,,2.0
+P259,1,True,True,True,cohorts-12_day-1,,2.0
+P262,1,True,False,True,cohorts-12_day-1,,2.0
+P264,1,True,True,True,cohorts-12_day-1,,2.0
+P265,1,True,True,False,cohorts-12_day-1,,2.0
+P266,1,True,True,True,cohorts-12_day-1,,2.0
+P268,1,True,True,True,cohorts-12_day-1,,2.0
+P269,1,True,True,False,cohorts-12_day-1,,2.0
+P270,1,True,True,True,cohorts-12_day-1,,2.0
+P273,1,True,True,True,cohorts-12_day-1,,2.0
+P276,1,True,True,True,cohorts-12_day-1,,2.0
+P277,1,True,True,True,cohorts-12_day-1,,2.0
+P278,1,True,True,False,cohorts-12_day-1,,2.0
+P279,1,True,True,True,cohorts-12_day-1,,2.0
+P280,1,True,True,True,cohorts-12_day-1,,2.0
+P281,1,True,True,True,,exploration set (dev20 / confirm20),2.0
+P282,1,True,True,True,cohorts-12_day-1,,2.0
+P283,1,True,True,False,cohorts-12_day-1,,2.0
+P284,1,True,True,False,cohorts-345_day-1,,3.0
+P285,1,True,True,True,cohorts-345_day-1,,3.0
+P287,1,True,True,True,cohorts-345_day-1,,3.0
+P290,1,True,True,True,cohorts-345_day-1,,3.0
+P292,1,True,True,True,,exploration set (dev20 / confirm20),3.0
+P293,1,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P294,1,True,True,True,cohorts-345_day-1,,3.0
+P297,1,True,False,True,cohorts-345_day-1,,3.0
+P298,1,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P301,1,True,True,True,cohorts-345_day-1,,3.0
+P302,1,True,True,True,cohorts-345_day-1,,3.0
+P303,1,True,True,True,cohorts-345_day-1,,3.0
+P304,1,True,True,True,,exploration set (dev20 / confirm20),3.0
+P305,1,True,True,True,cohorts-345_day-1,,3.0
+P306,1,True,True,True,,exploration set (dev20 / confirm20),3.0
+P308,1,True,True,True,,exploration set (dev20 / confirm20),3.0
+P309,1,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P310,1,True,False,True,,exploration set (dev20 / confirm20),3.0
+P312,1,True,True,True,,exploration set (dev20 / confirm20),3.0
+P313,1,True,True,True,cohorts-345_day-1,,3.0
+P314,1,True,True,True,cohorts-345_day-1,,3.0
+P315,1,True,True,True,,< 5 high or low videos,3.0
+P316,1,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P317,1,True,True,True,cohorts-345_day-1,,3.0
+P318,1,True,True,True,cohorts-345_day-1,,3.0
+P319,1,True,True,False,,exploration set (dev20 / confirm20),3.0
+P321,1,True,True,True,cohorts-345_day-1,,3.0
+P323,1,True,True,True,,exploration set (dev20 / confirm20),4.0
+P326,1,True,False,True,cohorts-345_day-1,,4.0
+P327,1,True,True,True,cohorts-345_day-1,,4.0
+P329,1,True,True,True,cohorts-345_day-1,,4.0
+P330,1,True,True,True,,exploration set (dev20 / confirm20),4.0
+P332,1,True,True,True,cohorts-345_day-1,,4.0
+P333,1,True,True,True,,no labelled trial left after the team split,
+P334,1,True,True,True,cohorts-345_day-1,,4.0
+P336,1,True,True,True,cohorts-345_day-1,,4.0
+P337,1,True,True,True,cohorts-345_day-1,,4.0
+P338,1,True,True,True,cohorts-345_day-1,,4.0
+P339,1,True,True,True,cohorts-345_day-1,,4.0
+P340,1,True,False,True,cohorts-345_day-1,,4.0
+P341,1,True,True,True,cohorts-345_day-1,,4.0
+P342,1,True,True,True,cohorts-345_day-1,,4.0
+P345,1,True,True,True,cohorts-345_day-1,,4.0
+P347,1,True,True,True,cohorts-345_day-1,,4.0
+P348,1,True,True,True,cohorts-345_day-1,,4.0
+P349,1,True,True,True,cohorts-345_day-1,,4.0
+P350,1,True,True,True,cohorts-345_day-1,,4.0
+P351,1,True,True,True,cohorts-345_day-1,,4.0
+P353,1,True,True,False,cohorts-345_day-1,,4.0
+P354,1,True,True,True,cohorts-345_day-1,,4.0
+P355,1,True,True,True,cohorts-345_day-1,,4.0
+P356,1,True,True,True,cohorts-345_day-1,,4.0
+P357,1,True,False,True,cohorts-345_day-1,,4.0
+P358,1,True,True,True,cohorts-345_day-1,,4.0
+P359,1,True,True,True,cohorts-345_day-1,,4.0
+P361,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P366,1,True,True,True,cohorts-345_day-1,,5.0
+P367,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P368,1,True,False,True,cohorts-345_day-1,,5.0
+P370,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P374,1,True,True,True,cohorts-345_day-1,,5.0
+P375,1,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P378,1,True,True,True,cohorts-345_day-1,,5.0
+P381,1,True,True,True,cohorts-345_day-1,,5.0
+P382,1,False,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P384,1,True,True,True,cohorts-345_day-1,,5.0
+P387,1,True,True,True,cohorts-345_day-1,,5.0
+P388,1,True,True,True,cohorts-345_day-1,,5.0
+P389,1,True,True,True,cohorts-345_day-1,,5.0
+P437,1,True,True,True,cohorts-345_day-1,,4.0
+P439,1,True,True,True,cohorts-345_day-1,,4.0
+P442,1,True,True,True,,exploration set (dev20 / confirm20),4.0
+P446,1,True,True,True,cohorts-345_day-1,,4.0
+P448,1,True,True,True,cohorts-345_day-1,,4.0
+P449,1,True,True,True,cohorts-345_day-1,,4.0
+P450,1,True,True,True,cohorts-345_day-1,,4.0
+P454,1,True,True,True,cohorts-345_day-1,,4.0
+P456,1,True,True,True,cohorts-345_day-1,,4.0
+P458,1,True,True,True,cohorts-345_day-1,,4.0
+P459,1,True,True,True,,exploration set (dev20 / confirm20),4.0
+P462,1,True,True,True,cohorts-345_day-1,,4.0
+P464,1,True,True,True,cohorts-345_day-1,,4.0
+P465,1,True,True,True,,no labelled trial left after the team split,
+P466,1,True,True,True,cohorts-345_day-1,,4.0
+P467,1,True,True,True,cohorts-345_day-1,,4.0
+P469,1,True,True,True,cohorts-345_day-1,,4.0
+P470,1,True,True,True,,exploration set (dev20 / confirm20),4.0
+P472,1,True,True,True,cohorts-345_day-1,,4.0
+P476,1,True,True,True,cohorts-345_day-1,,4.0
+P477,1,True,True,True,cohorts-345_day-1,,4.0
+P001,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P004,2,True,False,True,cohorts-12_day-2,,1.0
+P005,2,True,True,True,cohorts-12_day-2,,1.0
+P006,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P008,2,True,True,True,cohorts-12_day-2,,1.0
+P011,2,True,True,True,cohorts-12_day-2,,1.0
+P014,2,True,True,True,cohorts-12_day-2,,1.0
+P017,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P018,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P020,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P024,2,True,True,True,cohorts-12_day-2,,1.0
+P026,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P027,2,True,True,True,cohorts-12_day-2,,1.0
+P028,2,True,True,True,cohorts-12_day-2,,1.0
+P036,2,True,False,True,cohorts-12_day-2,,1.0
+P040,2,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P043,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P044,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P046,2,True,True,True,cohorts-12_day-2,,1.0
+P047,2,True,True,True,cohorts-12_day-2,,1.0
+P050,2,True,True,True,cohorts-12_day-2,,1.0
+P053,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P055,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P056,2,True,True,True,cohorts-12_day-2,,1.0
+P058,2,True,True,True,cohorts-12_day-2,,1.0
+P062,2,True,False,True,cohorts-12_day-2,,1.0
+P063,2,True,True,True,cohorts-12_day-2,,1.0
+P065,2,True,True,True,cohorts-12_day-2,,1.0
+P066,2,True,True,True,cohorts-12_day-2,,1.0
+P067,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P070,2,True,True,True,cohorts-12_day-2,,1.0
+P073,2,True,True,True,cohorts-12_day-2,,1.0
+P074,2,True,True,False,cohorts-12_day-2,,1.0
+P076,2,True,True,False,cohorts-12_day-2,,1.0
+P078,2,True,True,False,cohorts-12_day-2,,1.0
+P082,2,False,False,True,,GSR flat (range < 0.05 uS),1.0
+P083,2,True,True,True,cohorts-12_day-2,,1.0
+P084,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P087,2,True,False,True,cohorts-12_day-2,,1.0
+P090,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P091,2,True,True,True,cohorts-12_day-2,,1.0
+P094,2,True,True,True,cohorts-12_day-2,,1.0
+P095,2,True,True,True,cohorts-12_day-2,,1.0
+P099,2,False,False,True,,GSR flat (range < 0.05 uS),1.0
+P107,2,True,True,True,cohorts-12_day-2,,1.0
+P108,2,True,True,True,cohorts-12_day-2,,1.0
+P111,2,True,True,True,cohorts-12_day-2,,1.0
+P112,2,True,True,False,cohorts-12_day-2,,1.0
+P114,2,True,True,True,cohorts-12_day-2,,1.0
+P115,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P116,2,True,True,True,cohorts-12_day-2,,1.0
+P118,2,True,False,True,cohorts-12_day-2,,1.0
+P119,2,True,True,True,cohorts-12_day-2,,1.0
+P121,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P122,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P124,2,True,False,True,cohorts-12_day-2,,1.0
+P125,2,True,True,True,cohorts-12_day-2,,1.0
+P126,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P127,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P129,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P134,2,True,True,True,cohorts-12_day-2,,1.0
+P135,2,True,True,True,cohorts-12_day-2,,1.0
+P137,2,True,True,True,,exploration set (dev20 / confirm20),1.0
+P138,2,True,True,True,cohorts-12_day-2,,1.0
+P139,2,True,True,True,cohorts-12_day-2,,1.0
+P140,2,True,True,True,cohorts-12_day-2,,1.0
+P142,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P144,2,True,False,True,cohorts-12_day-2,,1.0
+P148,2,True,False,True,cohorts-12_day-2,,1.0
+P151,2,False,True,True,,GSR flat (range < 0.05 uS),1.0
+P152,2,True,False,True,cohorts-12_day-2,,1.0
+P153,2,True,True,True,cohorts-12_day-2,,1.0
+P155,2,True,False,False,cohorts-12_day-2,,1.0
+P156,2,True,True,True,cohorts-12_day-2,,1.0
+P159,2,True,True,True,cohorts-12_day-2,,2.0
+P160,2,True,True,True,cohorts-12_day-2,,2.0
+P163,2,True,True,True,cohorts-12_day-2,,2.0
+P164,2,True,False,True,cohorts-12_day-2,,2.0
+P165,2,True,True,True,cohorts-12_day-2,,2.0
+P166,2,True,True,True,cohorts-12_day-2,,2.0
+P168,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P170,2,True,True,True,cohorts-12_day-2,,2.0
+P171,2,True,True,True,cohorts-12_day-2,,2.0
+P176,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P178,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P179,2,True,True,True,cohorts-12_day-2,,2.0
+P180,2,True,True,True,cohorts-12_day-2,,2.0
+P181,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P182,2,True,True,True,cohorts-12_day-2,,2.0
+P183,2,True,True,True,cohorts-12_day-2,,2.0
+P185,2,True,False,True,cohorts-12_day-2,,2.0
+P186,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P187,2,True,False,True,,exploration set (dev20 / confirm20),2.0
+P189,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P190,2,True,True,True,cohorts-12_day-2,,2.0
+P191,2,True,True,True,cohorts-12_day-2,,2.0
+P192,2,True,True,True,cohorts-12_day-2,,2.0
+P193,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P194,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P195,2,True,True,True,cohorts-12_day-2,,2.0
+P196,2,True,True,True,cohorts-12_day-2,,2.0
+P197,2,True,True,True,cohorts-12_day-2,,2.0
+P198,2,True,True,True,cohorts-12_day-2,,2.0
+P200,2,True,True,True,cohorts-12_day-2,,2.0
+P201,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P202,2,True,True,True,cohorts-12_day-2,,2.0
+P203,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P205,2,True,True,True,cohorts-12_day-2,,2.0
+P206,2,True,True,True,cohorts-12_day-2,,2.0
+P207,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P209,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P210,2,True,True,True,cohorts-12_day-2,,2.0
+P212,2,True,False,True,,exploration set (dev20 / confirm20),2.0
+P213,2,True,True,True,,team split: rating SD < 1 or < 8 videos per group,
+P214,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P215,2,True,True,True,cohorts-12_day-2,,2.0
+P216,2,True,True,True,cohorts-12_day-2,,2.0
+P217,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P219,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P220,2,True,False,True,cohorts-12_day-2,,2.0
+P221,2,True,True,True,cohorts-12_day-2,,2.0
+P222,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P223,2,True,True,True,cohorts-12_day-2,,2.0
+P224,2,True,True,True,cohorts-12_day-2,,2.0
+P225,2,True,False,True,cohorts-12_day-2,,2.0
+P227,2,True,True,True,cohorts-12_day-2,,2.0
+P229,2,True,True,True,cohorts-12_day-2,,2.0
+P230,2,True,True,True,cohorts-12_day-2,,2.0
+P231,2,True,True,True,cohorts-12_day-2,,2.0
+P233,2,True,True,True,cohorts-12_day-2,,2.0
+P234,2,False,True,False,,GSR flat (range < 0.05 uS),2.0
+P235,2,True,True,True,cohorts-12_day-2,,2.0
+P236,2,True,True,True,cohorts-12_day-2,,2.0
+P237,2,True,True,True,cohorts-12_day-2,,2.0
+P238,2,True,True,True,cohorts-12_day-2,,2.0
+P240,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P241,2,True,True,True,cohorts-12_day-2,,2.0
+P242,2,True,True,True,cohorts-12_day-2,,2.0
+P243,2,True,True,True,cohorts-12_day-2,,2.0
+P246,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P248,2,True,False,True,cohorts-12_day-2,,2.0
+P250,2,True,False,True,cohorts-12_day-2,,2.0
+P251,2,True,False,True,cohorts-12_day-2,,2.0
+P252,2,True,True,True,cohorts-12_day-2,,2.0
+P253,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P254,2,True,True,True,cohorts-12_day-2,,2.0
+P258,2,True,True,True,cohorts-12_day-2,,2.0
+P259,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P261,2,True,True,True,cohorts-12_day-2,,2.0
+P264,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P265,2,True,False,True,cohorts-12_day-2,,2.0
+P268,2,True,True,True,cohorts-12_day-2,,2.0
+P269,2,True,False,True,cohorts-12_day-2,,2.0
+P273,2,True,True,True,cohorts-12_day-2,,2.0
+P276,2,True,True,True,cohorts-12_day-2,,2.0
+P277,2,True,True,True,cohorts-12_day-2,,2.0
+P278,2,True,True,False,cohorts-12_day-2,,2.0
+P279,2,True,True,True,cohorts-12_day-2,,2.0
+P280,2,True,True,True,cohorts-12_day-2,,2.0
+P281,2,True,True,True,,exploration set (dev20 / confirm20),2.0
+P282,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P283,2,False,True,True,,GSR flat (range < 0.05 uS),2.0
+P284,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P287,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P290,2,True,True,True,,,3.0
+P292,2,False,True,True,,exploration set (dev20 / confirm20),3.0
+P293,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P297,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P300,2,True,True,True,,,3.0
+P302,2,True,True,True,,,3.0
+P303,2,True,True,True,,,3.0
+P304,2,False,True,True,,exploration set (dev20 / confirm20),3.0
+P306,2,False,True,True,,exploration set (dev20 / confirm20),3.0
+P308,2,True,True,True,,exploration set (dev20 / confirm20),3.0
+P309,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P310,2,True,True,True,,exploration set (dev20 / confirm20),3.0
+P311,2,True,True,True,,,3.0
+P312,2,True,True,True,,exploration set (dev20 / confirm20),3.0
+P315,2,True,True,True,,,3.0
+P317,2,False,True,True,,GSR flat (range < 0.05 uS),3.0
+P318,2,True,True,True,,,3.0
+P319,2,True,True,False,,exploration set (dev20 / confirm20),3.0
+P322,2,True,True,True,,,3.0
