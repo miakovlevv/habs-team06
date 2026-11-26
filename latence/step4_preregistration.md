@@ -111,3 +111,34 @@ from the full-dataset test, which thus runs on participants never looked at.
 5. **Day 2 replication** (added 26/11/2026, before the machine run): the same primary comparison on day-2 sessions
    (`--days 2`, cohorts 1–2, exploration set excluded), as a replication on other sessions of the same people.
    Features are z-scored within each session; quality control is applied per session.
+
+## Change before evaluation: team arousal definition (26/11/2026)
+
+Decided after the extraction job and its inventory, **before any AUC of the full dataset was computed**:
+the high / low split is now the team definition (`latence/arousal_split.py`, `split_all`, default method "tiers"):
+thirds of each participant's ratings over all their rated videos (all days together); participants with a rating SD < 1
+or fewer than 8 videos in the high or low group are dropped; flagged outliers are then removed from the evaluated trials.
+The previous per-session tertiles remain available (`evaluate --split session`). Micha may still propose another
+definition: any later change will be reported next to this one.
+
+Extraction inventory (job of 26/11/2026): 533 rated sessions, 434 extracted, 99 without an emotion-video recording in the
+release (no read error). Sessions available before the split rules: primary (day 1, cohorts 1–2, outside the exploration set,
+usable GSR, ≥ 5 high and ≥ 5 low videos) 107; day-2 replication 111; day 1 cohorts 3–5: 71.
+
+## Full-dataset result (26/11/2026, team definition, exploration set excluded)
+
+| Analysis | Participants | GSR 2–12 s | GSR 0–10 s | Difference (better in) | Wilcoxon p |
+| --- | --- | --- | --- | --- | --- |
+| **PRIMARY: day 1, cohorts 1–2** | 98 | 0.569 | 0.562 | **+0.007** (52/98) | **0.020** |
+| Replication: day 2, cohorts 1–2 | 109 | 0.541 | 0.536 | +0.005 (58/109) | 0.072 |
+| Secondary: day 1, cohorts 3–5 | 66 | 0.570 | 0.553 | +0.016 (42/66) | 0.0001 |
+
+- **Primary hypothesis confirmed**, with a small effect (+0.007 AUC). Same direction in all three analyses; not significant on day 2.
+- GSR alone is well above chance everywhere (shuffled 95th percentile ≈ 0.52–0.53).
+- **Cohorts 3–5 do not show a weaker effect** (0.570 vs 0.569): the exploration-set observation (0.549 vs 0.599) did not replicate;
+  the restriction to cohorts 1–2 is therefore not needed for this effect.
+- Secondary: adding SCR features to GSR 2–12 s: +0.014 (p = 0.030) day 1, +0.013 (p = 0.039) day 2, +0.005 (p = 0.59) cohorts 3–5.
+  4 signals vs GSR alone: +0.004 (p = 0.47), +0.006 (p = 0.34), −0.011 (p = 0.61): the other signals add nothing.
+- Respiration alone day 1 (0.420) and HR alone in cohorts 3–5 (0.439) fall below 0.5: their direct within-participant AUC is ≈ 0.50
+  and the pooled coefficient ≈ 0, so the sign learned without the test participant is set by that participant's absence
+  (leave-one-out bias of an uninformative feature), not a real inverse effect.

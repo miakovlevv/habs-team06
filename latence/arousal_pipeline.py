@@ -281,7 +281,21 @@ def tertile_cuts(scores, frac=1 / 3):
     return lo, hi
 
 
-def load_table(features_dir, data, days):
+SPLIT = "team"   # "team": arousal_split.py (team definition, 26/11/2026); "session": tertiles per session (before)
+
+
+def team_levels(data):
+    """High / low / mid from the team definition (latence/arousal_split.py, Laura): thirds of each participant's
+    ratings over ALL their rated videos (all days); participants with rating SD < 1 or < 8 videos in a group
+    are dropped. Returns labels with participant_id, day, marker_id, rating_arousal, cohort, level, flagged."""
+    from arousal_split import load_ratings, split_all
+    lab = split_all(load_ratings(data))
+    lab = lab[lab.discriminant & lab.day.notna()]
+    lab = lab.assign(level=lab.cond.map({"haute": "high", "basse": "low", "moyenne": "mid"}))
+    return lab
+
+
+def load_table(features_dir, data, days, split=None):
     """Trials with ratings (labels_train.csv) and the high / low / mid level; participant table with usable signals."""
     f = Path(features_dir)
     if (f / "all_trials.csv").is_file():                       # combined files written by process_step4.py
@@ -289,14 +303,21 @@ def load_table(features_dir, data, days):
     else:
         trials = pd.concat([pd.read_csv(p) for p in sorted((f / "trials").glob("*.csv"))], ignore_index=True)
         parts = pd.DataFrame([json.loads(p.read_text()) for p in sorted((f / "participants").glob("*.json"))])
-    lab = pd.read_csv(Path(data) / "labels_train.csv", na_values=["TESTSUBJECT"])
-    lab = lab[lab.rating_arousal.notna() & (lab.flagged_outliers != 1) & lab.day.isin(days)]
-    lab = lab.assign(day=lab.day.astype(int), marker_id=lab.start_marker.astype(int))
-    level = []
-    for (p, d), g in lab.groupby(["participant_id", "day"]):
-        lo, hi = tertile_cuts(g.rating_arousal)                # cut points on all the participant's rated videos
-        level.append(g.assign(level=np.where(g.rating_arousal >= hi, "high", np.where(g.rating_arousal <= lo, "low", "mid"))))
-    lab = pd.concat(level)[["participant_id", "day", "marker_id", "rating_arousal", "level", "cohort"]]
+    if (split or SPLIT) == "team":
+        lab = team_levels(data)                                # thirds over all days, then flagged trials removed
+        lab = lab[(lab.flagged_outliers != 1) & lab.day.isin(days)]
+        lab = lab.assign(day=lab.day.astype(int), marker_id=lab.start_marker.astype(int))
+    else:
+        lab = pd.read_csv(Path(data) / "labels_train.csv", na_values=["TESTSUBJECT"])
+        lab = lab[lab.rating_arousal.notna() & (lab.flagged_outliers != 1) & lab.day.isin(days)]
+        lab = lab.assign(day=lab.day.astype(int), marker_id=lab.start_marker.astype(int))
+        level = []
+        for (p, d), g in lab.groupby(["participant_id", "day"]):
+            lo, hi = tertile_cuts(g.rating_arousal)            # cut points on the session's rated videos
+            level.append(g.assign(level=np.where(g.rating_arousal >= hi, "high",
+                                                 np.where(g.rating_arousal <= lo, "low", "mid"))))
+        lab = pd.concat(level)
+    lab = lab[["participant_id", "day", "marker_id", "rating_arousal", "level", "cohort"]]
     trials = trials.merge(lab.rename(columns={"participant_id": "participant"}), on=["participant", "day", "marker_id"])
     parts["ok_HR"] = parts.rr_suspect_pct <= QC_RR_SUSPECT_PCT
     parts["ok_GSR"] = parts.gsr_range_uS >= QC_GSR_RANGE_US
@@ -397,7 +418,8 @@ def summary(auc):
 
 def cmd_evaluate(args):
     pd.set_option("display.width", 200)
-    trials, parts = load_table(args.features, args.data_root, args.days)
+    trials, parts = load_table(args.features, args.data_root, args.days, split=args.split)
+    print(f"high / low definition: {args.split}")
     excluded = set(read_ids(args.exclude))
     keep = read_ids(args.participants_file and [args.participants_file])
     t = trials[~trials.participant.isin(excluded)]
@@ -490,6 +512,8 @@ def main():
     ev.add_argument("--exclude", nargs="+", default=[], metavar="ID_OR_FILE",
                     help="participants left out, e.g. the exploration set (IDs and/or files)")
     ev.add_argument("--participants-file", help="score only these participants")
+    ev.add_argument("--split", choices=["team", "session"], default="team",
+                    help="high / low definition: team (arousal_split.py, default) or session (tertiles per session)")
     ev.add_argument("--n-null", type=int, default=200, help="shuffles for the chance level (0 to skip)")
     ev.add_argument("--save", action="store_true", help="write results/<cohorts>/ in the features folder")
     args = parser.parse_args()
