@@ -98,3 +98,6 @@ def process(data_dir: Path, out_dir: Path) -> None:
     pd.DataFrame(summary).to_csv(out_dir / "alpha.tsv", sep="\t", index=False)
     pd.concat(per_channel).to_csv(out_dir / "alpha_by_channel.tsv", sep="\t", index=False)
     print(f"\nwrote alpha.tsv ({len(summary)} recordings) and alpha_by_channel.tsv")
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "latence"))
+from process_step4 import process
