@@ -9,6 +9,8 @@ otherwise from the HABS_DATA environment variable; writing into the repo's sampl
     python latence/download_data.py --participants-file my_list.txt --tasks emotion-video resting-state
     # random draw (fixed seed: same selection for everyone)
     python latence/download_data.py --random 10 --seed 42
+    # random draw without participants already used (IDs and/or .txt/.csv files)
+    python latence/download_data.py --random 20 --seed 7 --exclude first_20.txt P308
     # show what would be downloaded, without downloading
     python latence/download_data.py --participants P001 --dry-run
 
@@ -145,6 +147,8 @@ def main():
     parser.add_argument("--versions", nargs="+", choices=VERSIONS, default=["PREPROCESSED"])
     parser.add_argument("--seed", type=int, default=42, help="seed of the random draw")
     parser.add_argument("--min-ratings", type=int, default=20, help="random mode: min arousal ratings per day")
+    parser.add_argument("--exclude", nargs="+", default=[], metavar="ID_OR_FILE",
+                        help="participants to leave out (IDs and/or .txt/.csv files), e.g. those already analysed")
     parser.add_argument("--data-root", type=Path, default=os.environ.get("HABS_DATA"),
                         help="destination folder (default: $HABS_DATA)")
     parser.add_argument("--dry-run", action="store_true", help="show the plan without downloading")
@@ -169,15 +173,21 @@ def main():
                 print(table)
                 fetch(table, data_root, token)
 
+    excluded = set()
+    for item in args.exclude:
+        excluded |= set(read_participant_file(item)) if Path(item).is_file() else {item}
+
     if args.random is not None:
         labels_path = data_root / "labels_train.csv"
         if not labels_path.is_file():
             sys.exit(f"{labels_path} missing: run once without --dry-run to fetch the tables.")
-        pool = eligible_participants(labels_path, args.days, args.min_ratings)
+        pool = [p for p in eligible_participants(labels_path, args.days, args.min_ratings) if p not in excluded]
         chosen = by_number(random.Random(args.seed).sample(pool, min(args.random, len(pool))))
         print(f"{len(pool)} eligible participants (>= {args.min_ratings} ratings on day(s) {args.days}), seed {args.seed}")
     else:
-        chosen = by_number(args.participants or read_participant_file(args.participants_file))
+        chosen = [p for p in by_number(args.participants or read_participant_file(args.participants_file)) if p not in excluded]
+    if excluded:
+        print(f"excluded: {len(excluded)} participant(s)")
 
     files = []
     for p in chosen:
