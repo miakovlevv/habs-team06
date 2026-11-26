@@ -4,9 +4,10 @@ Two separate stages, so that the heavy part runs once (e.g. on the HABS machine)
 
     # 1. extract: one CSV per participant/day (resumable; a failing participant is logged, not fatal)
     python latence/arousal_pipeline.py extract --data-root $HABS_DATA --out ../habs_results/step4 --participants P001 P020
-    python latence/arousal_pipeline.py extract --data-root /data --out <out_dir> --all           # every labelled participant
-    # 2. evaluate: frozen comparison of step4_preregistration.md (+ secondary analyses)
-    python latence/arousal_pipeline.py evaluate --data-root $HABS_DATA --features ../habs_results/step4
+    python latence/arousal_pipeline.py extract --data-root /data --out <out_dir> --all --workers 8   # every labelled participant
+    # 2. evaluate: frozen comparison of step4_preregistration.md (full-dataset section) + secondary analyses
+    python latence/arousal_pipeline.py evaluate --data-root $HABS_DATA --features <out_dir> --cohorts 1 2 \
+        --exclude latence/participants_dev20.txt latence/participants_confirm20_final.txt
 
 Extraction (per participant and day; emotion-video + resting-state, PREPROCESSED):
 - HR (R peaks after 50 Hz notch), GSR (1 Hz low-pass, µS), pupil (mean of both eyes, blinks removed), respiration
@@ -161,50 +162,107 @@ def extract_participant(subj, day, data):
     return pd.DataFrame(rows), part
 
 
-def participants_from_labels(data, days):
+def read_ids(items):
+    """Participant IDs from a mix of IDs and .txt/.csv files (column participant_id)."""
+    out = []
+    for it in items or []:
+        f = Path(it)
+        if f.is_file():
+            out += (pd.read_csv(f)["participant_id"].astype(str).tolist() if f.suffix == ".csv"
+                    else f.read_text().replace(",", " ").split())
+        else:
+            out.append(it)
+    return out
+
+
+def participants_from_labels(data, days, cohorts=None):
+    """Participants with arousal ratings on `days` (optionally only some cohorts), ordered by cohort then ID."""
     lab = pd.read_csv(Path(data) / "labels_train.csv", na_values=["TESTSUBJECT"])
     lab = lab[lab.participant_id.astype(str).str.fullmatch(r"P\d+") & lab.rating_arousal.notna() & lab.day.isin(days)]
-    return sorted(lab.participant_id.unique())
+    if cohorts:
+        lab = lab[lab.cohort.isin(cohorts)]
+    first = lab.groupby("participant_id").cohort.min()
+    return sorted(first.index, key=lambda q: (first[q], int(q[1:])))
 
 
-def cmd_extract(args):
-    out = Path(args.out).expanduser().resolve()
-    data = Path(args.data_root).expanduser().resolve()
+def _extract_one(job):
+    """Worker: extract one participant/day and write its files. Returns a log line and an optional error row."""
+    p, day, data, out, k, n = job
+    stem = f"{p}_day-{day}"
+    if not bdf_path("emotion-video", p, day, data=data, version=VERSION).is_file():
+        return f"[{k}/{n}] {stem}: no emotion-video recording, skipped", \
+            {"participant": p, "day": day, "error": "no emotion-video recording", "trace": ""}
+    t0 = time.time()
+    try:
+        trials, part = extract_participant(p, day, data)
+        (out / "participants" / f"{stem}.json").write_text(json.dumps(part, indent=1))
+        trials.to_csv(out / "trials" / f"{stem}.csv", index=False)   # written last: marks the participant as done
+        return f"[{k}/{n}] {stem}: {len(trials)} videos ({time.time() - t0:.0f} s)", None
+    except Exception as e:                                           # noqa: BLE001 — log and go on
+        return f"[{k}/{n}] {stem}: FAILED {e!r}", \
+            {"participant": p, "day": day, "error": repr(e), "trace": traceback.format_exc(limit=3)}
+
+
+def rated_pairs(data, days, cohorts=None):
+    """(participant, day) pairs with arousal ratings, day by day (all of day 1 before day 2), cohort then ID."""
+    lab = pd.read_csv(Path(data) / "labels_train.csv", na_values=["TESTSUBJECT"])
+    lab = lab[lab.participant_id.astype(str).str.fullmatch(r"P\d+") & lab.rating_arousal.notna() & lab.day.isin(days)]
+    if cohorts:
+        lab = lab[lab.cohort.isin(cohorts)]
+    g = lab.groupby(["participant_id", "day"]).cohort.min().reset_index()
+    g["num"] = g.participant_id.str[1:].astype(int)
+    g = g.sort_values(["day", "cohort", "num"])
+    return [(p, int(d)) for p, d in zip(g.participant_id, g.day)]
+
+
+def run_extract(data, out, subjects, days=(1,), overwrite=False, workers=1, time_budget_min=None, pairs=None):
+    """Extract every participant/day into `out` (resumable). Several workers run in parallel processes;
+    with a time budget, no new participant is started once it is spent (the files already written are kept).
+    pairs: explicit (participant, day) list, in processing order (otherwise all of `days` for each subject, day by day)."""
+    from concurrent.futures import ProcessPoolExecutor, FIRST_COMPLETED, wait
+    data, out = Path(data).expanduser().resolve(), Path(out).expanduser().resolve()
     if out == data or data in out.parents:
-        sys.exit("Refusing to write inside the dataset: choose another --out.")
+        sys.exit("Refusing to write inside the dataset: choose another output folder.")
     (out / "trials").mkdir(parents=True, exist_ok=True)
     (out / "participants").mkdir(parents=True, exist_ok=True)
-    if args.all:
-        subjects = participants_from_labels(data, args.days)
-    elif args.participants_file:
-        subjects = Path(args.participants_file).read_text().replace(",", " ").split()
-    else:
-        subjects = args.participants
-    errors = []
-    t_start = time.time()
-    for k, p in enumerate(subjects, start=1):
-        for day in args.days:
-            stem = f"{p}_day-{day}"
-            done = out / "trials" / f"{stem}.csv"
-            if done.is_file() and not args.overwrite:
-                continue
-            if not bdf_path("emotion-video", p, day, data=data, version=VERSION).is_file():
-                errors.append({"participant": p, "day": day, "error": "no emotion-video recording", "trace": ""})
-                print(f"[{k}/{len(subjects)}] {stem}: no emotion-video recording, skipped", flush=True)
-                continue
-            t0 = time.time()
-            try:
-                trials, part = extract_participant(p, day, data)
-                (out / "participants" / f"{stem}.json").write_text(json.dumps(part, indent=1))
-                trials.to_csv(done, index=False)             # written last: marks the participant as done
-                print(f"[{k}/{len(subjects)}] {stem}: {len(trials)} videos ({time.time() - t0:.0f} s)", flush=True)
-            except Exception as e:                           # noqa: BLE001 — log and go on
-                errors.append({"participant": p, "day": day, "error": repr(e), "trace": traceback.format_exc(limit=3)})
-                print(f"[{k}/{len(subjects)}] {stem}: FAILED {e!r}", flush=True)
+    pairs = pairs if pairs is not None else [(p, day) for day in days for p in subjects]
+    jobs = [(p, day, data, out, k, len(pairs)) for k, (p, day) in enumerate(pairs, start=1)
+            if overwrite or not (out / "trials" / f"{p}_day-{day}.csv").is_file()]
+    print(f"{len(pairs)} participant-days, {len(jobs)} to extract, {workers} worker(s)", flush=True)
+    t_start, errors, done = time.time(), [], 0
+    over = lambda: time_budget_min is not None and time.time() - t_start > 60 * time_budget_min
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        todo, running = list(jobs), set()
+        while todo or running:
+            while todo and len(running) < workers and not over():
+                running.add(pool.submit(_extract_one, todo.pop(0)))
+            if not running:
+                break
+            finished, running = wait(running, return_when=FIRST_COMPLETED)
+            for f in finished:
+                line, err = f.result()
+                done += 1
+                print(line, flush=True)
+                if err:
+                    errors.append(err)
+        if todo:
+            print(f"TIME BUDGET SPENT: {len(todo)} participant-days not started "
+                  f"(first: {todo[0][0]}); re-run with the same output folder to finish.", flush=True)
     if errors:
         log = out / "errors.csv"
         pd.DataFrame(errors).to_csv(log, mode="a", header=not log.is_file(), index=False)
-    print(f"done in {(time.time() - t_start) / 60:.1f} min, {len(errors)} failure(s)")
+    print(f"done in {(time.time() - t_start) / 60:.1f} min: {done} processed, {len(errors)} failure(s) or missing", flush=True)
+    return errors
+
+
+def cmd_extract(args):
+    if args.all:
+        subjects = participants_from_labels(args.data_root, args.days, args.cohorts)
+    else:
+        subjects = read_ids(args.participants or [args.participants_file])
+    excluded = set(read_ids(args.exclude))
+    subjects = [p for p in subjects if p not in excluded]
+    run_extract(args.data_root, args.out, subjects, args.days, args.overwrite, args.workers, args.time_budget_min)
 
 
 # =========================================================================== evaluation
@@ -226,8 +284,11 @@ def tertile_cuts(scores, frac=1 / 3):
 def load_table(features_dir, data, days):
     """Trials with ratings (labels_train.csv) and the high / low / mid level; participant table with usable signals."""
     f = Path(features_dir)
-    trials = pd.concat([pd.read_csv(p) for p in sorted((f / "trials").glob("*.csv"))], ignore_index=True)
-    parts = pd.DataFrame([json.loads(p.read_text()) for p in sorted((f / "participants").glob("*.json"))])
+    if (f / "all_trials.csv").is_file():                       # combined files written by process_step4.py
+        trials, parts = pd.read_csv(f / "all_trials.csv"), pd.read_csv(f / "all_participants.csv")
+    else:
+        trials = pd.concat([pd.read_csv(p) for p in sorted((f / "trials").glob("*.csv"))], ignore_index=True)
+        parts = pd.DataFrame([json.loads(p.read_text()) for p in sorted((f / "participants").glob("*.json"))])
     lab = pd.read_csv(Path(data) / "labels_train.csv", na_values=["TESTSUBJECT"])
     lab = lab[lab.rating_arousal.notna() & (lab.flagged_outliers != 1) & lab.day.isin(days)]
     lab = lab.assign(day=lab.day.astype(int), marker_id=lab.start_marker.astype(int))
@@ -247,6 +308,11 @@ def load_table(features_dir, data, days):
 def window(trials, s, a, b):
     """Baseline-corrected mean of signal s on [a, b[ s (integer bounds)."""
     return trials[[f"{s}_b{k:+d}" for k in range(a, b)]].mean(axis=1).to_numpy()
+
+
+def session(d):
+    """Participant-day key: features are z-scored within each session."""
+    return d.participant.astype(str) + "_day-" + d.day.astype(str)
 
 
 def within_z(x, groups):
@@ -272,7 +338,7 @@ def per_participant_window_auc(d, y):
     lab = (d.level != "mid").to_numpy()
     out = {}
     for a, b in GSR_WINDOWS:
-        x = within_z(window(d, "GSR", a, b)[:, None], d.participant)[:, 0]
+        x = within_z(window(d, "GSR", a, b)[:, None], session(d))[:, 0]
         dd = pd.DataFrame({"p": d.participant.to_numpy()[lab], "x": x[lab], "y": y[lab]})
         out[(a, b)] = dd.groupby("p").apply(lambda g: fast_auc(g.y.to_numpy(), g.x.to_numpy()), include_groups=False)
     return pd.DataFrame(out)
@@ -290,7 +356,7 @@ def loso(d, spec_fn, y):
         key = tuple(spec)
         if key not in feats:
             cols = [d[it[0]].to_numpy(float) if len(it) == 1 else window(d, *it) for it in spec]
-            feats[key] = within_z(np.column_stack(cols), d.participant)
+            feats[key] = within_z(np.column_stack(cols), session(d))
         X = feats[key]
         te = (d.participant == p).to_numpy()
         tr = ~te & lab
@@ -300,91 +366,102 @@ def loso(d, spec_fn, y):
     return pd.Series(aucs)
 
 
-def evaluate_sets(d, y):
-    """AUC per participant for the primary and secondary sets."""
-    win_auc = per_participant_window_auc(d, y)
+GSR_PRIMARY = ("GSR", 2, 12)      # skin read ~2 s later than the video (heart -> skin delay)
+GSR_NAIVE = ("GSR", 0, 10)        # the video window
+SCR = [("scr_any",), ("scr_amp",)]
 
-    def learned(p):                                          # GSR window chosen on the training participants only
-        return [("GSR", *win_auc.drop(index=p).median().idxmax())]
 
-    others = [NAIVE["HR"], NAIVE["pupil"], NAIVE["resp"]]
-    sets = {
-        "PRIMARY: 4 signals, skin window learned": lambda p: others + learned(p),
-        "REFERENCE: 4 signals, naive 0-10 s": lambda p: list(NAIVE.values()),
-        "GSR alone, naive 0-10 s": lambda p: [NAIVE["GSR"]],
-        "GSR alone, Maroua's lag 2-12 s": lambda p: [("GSR", 2, 12)],
-        "GSR alone, window learned": learned,
-        "HR alone, naive": lambda p: [NAIVE["HR"]],
-        "pupil alone, naive": lambda p: [NAIVE["pupil"]],
-        "resp alone, naive": lambda p: [NAIVE["resp"]],
-        "4 signals, skin window learned + SCR": lambda p: others + learned(p) + [("scr_any",), ("scr_amp",)],
-    }
-    chosen = pd.Series([learned(p)[0][1:] for p in d.participant.unique()]).value_counts()
-    return pd.DataFrame({name: loso(d, fn, y) for name, fn in sets.items()}), chosen
+def scores(d, y, sets):
+    """AUC per participant (rows) for each named set (columns). sets: {name: spec_fn(test_participant)}."""
+    return pd.DataFrame({name: loso(d, fn, y) for name, fn in sets.items()})
+
+
+def paired(a, b):
+    """Mean difference, participants better, Wilcoxon p (two-sided)."""
+    diff = a - b
+    return diff.mean(), f"{(diff > 0).sum()}/{len(diff)}", wilcoxon(diff).pvalue
+
+
+def scorable(d):
+    """Keep participants with at least MIN_PER_CLASS high and low videos."""
+    c = d.groupby("participant")["level"].value_counts().unstack(fill_value=0)
+    keep = c.index[(c.get("high", 0) >= MIN_PER_CLASS) & (c.get("low", 0) >= MIN_PER_CLASS)]
+    return d[d.participant.isin(keep)].reset_index(drop=True), sorted(set(c.index) - set(keep))
+
+
+def summary(auc):
+    return pd.DataFrame({"mean AUC": auc.mean(), "median AUC": auc.median(),
+                         "AUC > 0.5": [f"{(auc[c] > 0.5).sum()}/{len(auc)}" for c in auc],
+                         "p vs 0.5": [wilcoxon(auc[c] - 0.5).pvalue for c in auc]})
 
 
 def cmd_evaluate(args):
+    pd.set_option("display.width", 200)
     trials, parts = load_table(args.features, args.data_root, args.days)
-    ok = parts[parts[[f"ok_{s}" for s in SIGNALS]].all(axis=1)]
-    excluded = parts.loc[~parts.index.isin(ok.index), ["participant", "day"] + [f"ok_{s}" for s in SIGNALS]]
-    d = trials.merge(ok[["participant", "day"]], on=["participant", "day"])
-    counts = d.groupby("participant")["level"].value_counts().unstack(fill_value=0)
-    enough = counts.index[(counts.get("high", 0) >= MIN_PER_CLASS) & (counts.get("low", 0) >= MIN_PER_CLASS)]
-    d = d[d.participant.isin(enough)].reset_index(drop=True)
-    if args.participants_file:
-        keep = Path(args.participants_file).read_text().replace(",", " ").split()
-        d = d[d.participant.isin(keep)].reset_index(drop=True)
+    excluded = set(read_ids(args.exclude))
+    keep = read_ids(args.participants_file and [args.participants_file])
+    t = trials[~trials.participant.isin(excluded)]
+    if keep:
+        t = t[t.participant.isin(keep)]
+    if args.cohorts:
+        t = t[t.cohort.isin(args.cohorts)]
+    parts = parts[parts.day.isin(args.days) & parts.participant.isin(t.participant.unique())]
+    print(f"cohorts {args.cohorts or 'all'}, {len(excluded)} participants excluded beforehand (exploration set), "
+          f"{parts.participant.nunique()} participants with features")
+    qc = parts[["participant", "day"] + [f"ok_{s}" for s in SIGNALS]]
+    usable = lambda mask: t.merge(qc.loc[mask, ["participant", "day"]], on=["participant", "day"])  # QC per session
+    print(f"quality control: GSR unusable {(~qc.ok_GSR).sum()}, HR {(~qc.ok_HR).sum()}, pupil {(~qc.ok_pupil).sum()}")
+
+    # ---- PRIMARY: GSR 2-12 s vs GSR 0-10 s, on every participant with a usable GSR
+    d, small = scorable(usable(qc.ok_GSR))
     y = (d.level == "high").to_numpy()
-    print(f"{d.participant.nunique()} participants scored, {len(d)} rated videos "
-          f"({(d.level == 'high').sum()} high / {(d.level == 'low').sum()} low / {(d.level == 'mid').sum()} mid)")
-    if len(excluded):
-        print("excluded by quality control:\n" + excluded.to_string(index=False))
-    small = sorted(set(counts.index) - set(enough))
-    if small:
-        print(f"excluded, fewer than {MIN_PER_CLASS} high or low videos: {small}")
-
-    auc, chosen = evaluate_sets(d, y)
-    print("GSR windows learned in the folds:", {f"{a}-{b} s": int(n) for (a, b), n in chosen.items()})
-
-    # chance level: ratings shuffled within participant (primary and reference sets)
+    print(f"\nPRIMARY set: {d.participant.nunique()} participants, {len(d)} rated videos "
+          f"({(d.level == 'high').sum()} high / {(d.level == 'low').sum()} low / {(d.level == 'mid').sum()} mid); "
+          f"{len(small)} with < {MIN_PER_CLASS} high or low videos")
+    win_auc = per_participant_window_auc(d, y)
+    gsr_sets = {
+        "GSR 2-12 s (PRIMARY)": lambda p: [GSR_PRIMARY],
+        "GSR 0-10 s (REFERENCE)": lambda p: [GSR_NAIVE],
+        "GSR 2-12 s + SCR": lambda p: [GSR_PRIMARY] + SCR,
+        "GSR window learned": lambda p: [("GSR", *win_auc.drop(index=p).median().idxmax())],
+    }
+    auc1 = scores(d, y, gsr_sets)
+    print(summary(auc1).round(3).to_string())
     rng = np.random.default_rng(0)
     null = []
     for _ in range(args.n_null):
         lev = d.groupby("participant")["level"].transform(lambda l: pd.Series(rng.permutation(l.to_numpy()), index=l.index))
-        dd = d.assign(level=lev)
-        a, _ = evaluate_sets_subset(dd, (lev == "high").to_numpy())
-        null.append(a.mean())
-    null = pd.DataFrame(null)
-
-    rows = []
-    for c in auc:
-        rows.append({"set": c, "mean AUC": auc[c].mean(), "median AUC": auc[c].median(),
-                     "AUC > 0.5": f"{(auc[c] > 0.5).sum()}/{len(auc)}", "p vs 0.5": wilcoxon(auc[c] - 0.5).pvalue})
-    table = pd.DataFrame(rows).set_index("set")
-    pd.set_option("display.width", 200)
-    print(table.round(3).to_string())
-    if len(null):
-        print("chance level, 95th percentile of the mean AUC (shuffled ratings): "
+        null.append(scores(d.assign(level=lev), (lev == "high").to_numpy(),
+                           {k: gsr_sets[k] for k in list(gsr_sets)[:2]}).mean())
+    if null:
+        null = pd.DataFrame(null)
+        print("chance level (ratings shuffled within participant), 95th percentile of the mean AUC: "
               + ", ".join(f"{c}: {np.percentile(null[c], 95):.3f}" for c in null))
-    prim, ref = auc.columns[0], auc.columns[1]
-    diff = auc[prim] - auc[ref]
-    print(f"\nPRIMARY TEST ({prim} vs {ref}): mean difference {diff.mean():+.3f}, "
-          f"better in {(diff > 0).sum()}/{len(diff)} participants, Wilcoxon p = {wilcoxon(diff).pvalue:.4f}")
+    m, n, pv = paired(auc1.iloc[:, 0], auc1.iloc[:, 1])
+    print(f"\n>>> PRIMARY TEST  GSR 2-12 s vs GSR 0-10 s: mean difference {m:+.3f}, better in {n}, Wilcoxon p = {pv:.4g}")
+    m, n, pv = paired(auc1["GSR 2-12 s + SCR"], auc1.iloc[:, 0])
+    print(f"    secondary     GSR 2-12 s + SCR vs GSR 2-12 s: {m:+.3f}, better in {n}, p = {pv:.4g}")
+
+    # ---- SECONDARY: 4 signals vs GSR alone, each signal alone (participants with all four signals usable)
+    d4, _ = scorable(usable(qc[[f"ok_{s}" for s in SIGNALS]].all(axis=1)))
+    y4 = (d4.level == "high").to_numpy()
+    sets4 = {"GSR 2-12 s": lambda p: [GSR_PRIMARY],
+             "4 signals (GSR 2-12 s, others 0-10 s)": lambda p: [GSR_PRIMARY, NAIVE["HR"], NAIVE["pupil"], NAIVE["resp"]],
+             **{f"{s} alone, 0-10 s": (lambda p, s=s: [NAIVE[s]]) for s in ["HR", "pupil", "resp"]}}
+    auc4 = scores(d4, y4, sets4)
+    print(f"\nSECONDARY set (all four signals usable): {d4.participant.nunique()} participants")
+    print(summary(auc4).round(3).to_string())
+    m, n, pv = paired(auc4.iloc[:, 1], auc4.iloc[:, 0])
+    print(f"    secondary     4 signals vs GSR 2-12 s alone: {m:+.3f}, better in {n}, p = {pv:.4g}")
+
     if args.save:
-        out = Path(args.features) / "results"
-        out.mkdir(exist_ok=True)
-        auc.to_csv(out / "auc_per_participant.csv")
-        table.to_csv(out / "summary.csv")
+        tag = ("cohorts-" + "".join(map(str, args.cohorts)) if args.cohorts else "all-cohorts") \
+            + "_day-" + "".join(map(str, args.days))
+        out = Path(args.features) / "results" / tag
+        out.mkdir(parents=True, exist_ok=True)
+        auc1.to_csv(out / "auc_primary_set.csv")
+        auc4.to_csv(out / "auc_four_signal_set.csv")
         print("saved in", out)
-
-
-def evaluate_sets_subset(d, y):
-    """Primary and reference sets only (for the permutation null)."""
-    win_auc = per_participant_window_auc(d, y)
-    others = [NAIVE["HR"], NAIVE["pupil"], NAIVE["resp"]]
-    sets = {"PRIMARY": lambda p: others + [("GSR", *win_auc.drop(index=p).median().idxmax())],
-            "REFERENCE": lambda p: list(NAIVE.values())}
-    return pd.DataFrame({name: loso(d, fn, y) for name, fn in sets.items()}), None
 
 
 # =========================================================================== CLI
@@ -399,15 +476,22 @@ def main():
     who.add_argument("--participants", nargs="+")
     who.add_argument("--participants-file")
     who.add_argument("--all", action="store_true", help="every participant with arousal ratings on --days")
+    ex.add_argument("--cohorts", nargs="+", type=int, help="with --all: only these cohorts")
+    ex.add_argument("--exclude", nargs="+", default=[], metavar="ID_OR_FILE", help="participants to skip")
     ex.add_argument("--days", nargs="+", type=int, default=[1])
+    ex.add_argument("--workers", type=int, default=1, help="parallel processes")
+    ex.add_argument("--time-budget-min", type=float, help="start no new participant after this many minutes")
     ex.add_argument("--overwrite", action="store_true")
     ev = sub.add_parser("evaluate", help="arousal prediction from the extracted features (light)")
     ev.add_argument("--data-root", required=True, help="folder with labels_train.csv")
     ev.add_argument("--features", required=True, help="--out folder of extract")
     ev.add_argument("--days", nargs="+", type=int, default=[1])
-    ev.add_argument("--participants-file", help="score only these participants (e.g. the confirmation set)")
+    ev.add_argument("--cohorts", nargs="+", type=int, help="only these cohorts (e.g. 1 2)")
+    ev.add_argument("--exclude", nargs="+", default=[], metavar="ID_OR_FILE",
+                    help="participants left out, e.g. the exploration set (IDs and/or files)")
+    ev.add_argument("--participants-file", help="score only these participants")
     ev.add_argument("--n-null", type=int, default=200, help="shuffles for the chance level (0 to skip)")
-    ev.add_argument("--save", action="store_true", help="write results/ in the features folder")
+    ev.add_argument("--save", action="store_true", help="write results/<cohorts>/ in the features folder")
     args = parser.parse_args()
     {"extract": cmd_extract, "evaluate": cmd_evaluate}[args.cmd](args)
 

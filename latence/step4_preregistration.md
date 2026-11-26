@@ -78,3 +78,36 @@ Normalisation relative to rest (step 4.3) is not retested: with a within-partici
   - Adding HR, pupil and respiration **lowers** the AUC (PRIMARY − GSR 0–10 s: −0.021): HR (0.391) and respiration (0.439) alone are
     below 0.5, the leave-one-out bias of uninformative features.
 - Candidate hypothesis for the full dataset (to be frozen before that run): GSR alone 2–12 s vs GSR alone 0–10 s.
+
+---
+
+# Full-dataset hypothesis (frozen 26/11/2026, before the machine run)
+
+The two first sets (development 20 + confirmation 20, 37 with recordings) become the **exploration set**: they are excluded
+from the full-dataset test, which thus runs on participants never looked at.
+
+## Data
+- Every participant with day-1 arousal ratings and an emotion-video recording, **cohorts 1–2** (fully randomised video order),
+  exploration set excluded (`--exclude latence/participants_dev20.txt latence/participants_confirm20_final.txt`).
+- Why cohorts 1–2: in cohorts 3–5 the videos come in emotion blocks (Dataset Paper, Table 2; 31–55 % of consecutive videos share
+  their default emotion), so the previous video and slow drifts can be confounded with arousal. In the exploration set the skin
+  effect was weaker there (GSR 2–12 s: 0.549 vs 0.599). This choice is therefore partly informed by the exploration data; cohorts
+  3–5 are reported as a secondary analysis with the same pipeline.
+- Extraction: `latence/process_step4.py` (HABS machine) = `arousal_pipeline.extract`; evaluation: `arousal_pipeline.py evaluate`.
+
+## Primary comparison (the only confirmatory test)
+- **GSR alone, 2–12 s** vs **GSR alone, 0–10 s** (baseline −5…−4 s, z-scored within participant over all their videos).
+- Participants: usable GSR (range ≥ 0.05 µS) and ≥ 5 high and ≥ 5 low videos. Leave-one-participant-out logistic regression,
+  AUC within each test participant; Wilcoxon signed-rank on the paired AUC difference, two-sided, α = 0.05.
+- **Confirmed** if the mean difference is > 0 and p < 0.05. Exploration set: +0.016 to +0.019, p = 0.03 in each of the two sets.
+- Also reported: both sets against chance (ratings shuffled within participant, 200 draws).
+
+## Secondary (exploratory)
+1. GSR 2–12 s + SCR features vs GSR 2–12 s (exploration: +0.009 to +0.014).
+2. 4 signals (GSR 2–12 s + HR, pupil, respiration 0–10 s) vs GSR 2–12 s alone, on participants with all four signals usable
+   (exploration: adding the other signals lowers the AUC).
+3. Each other signal alone; GSR window learned in each fold.
+4. Same analyses on cohorts 3–5 (emotion blocks): `--cohorts 3 4 5`.
+5. **Day 2 replication** (added 26/11/2026, before the machine run): the same primary comparison on day-2 sessions
+   (`--days 2`, cohorts 1–2, exploration set excluded), as a replication on other sessions of the same people.
+   Features are z-scored within each session; quality control is applied per session.
