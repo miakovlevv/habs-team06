@@ -124,6 +124,21 @@ def download_file(remote, local, token):
     part.replace(local)
 
 
+def exists_on_hf(remote, token):
+    """True if the file exists on Hugging Face (HEAD request, nothing downloaded)."""
+    url = f"https://huggingface.co/datasets/{REPO_ID}/resolve/main/{urllib.parse.quote(remote)}"
+    request = urllib.request.Request(url, method="HEAD", headers={"Authorization": f"Bearer {token}"})
+    try:
+        urllib.request.build_opener(_NoRedirect).open(request, timeout=30)
+        return True
+    except urllib.error.HTTPError as error:
+        if error.code in (301, 302, 303, 307, 308):   # large files are redirected to a CDN: they exist
+            return True
+        if error.code == 404:
+            return False
+        raise
+
+
 def fetch(remote, data_root, token):
     """Download one file; returns False if it does not exist on Hugging Face."""
     try:
@@ -152,6 +167,7 @@ def main():
     parser.add_argument("--data-root", type=Path, default=os.environ.get("HABS_DATA"),
                         help="destination folder (default: $HABS_DATA)")
     parser.add_argument("--dry-run", action="store_true", help="show the plan without downloading")
+    parser.add_argument("--log", type=Path, help="CSV of the files that could not be downloaded (outside the dataset)")
     args = parser.parse_args()
 
     if not args.data_root:
@@ -182,8 +198,20 @@ def main():
         if not labels_path.is_file():
             sys.exit(f"{labels_path} missing: run once without --dry-run to fetch the tables.")
         pool = [p for p in eligible_participants(labels_path, args.days, args.min_ratings) if p not in excluded]
-        chosen = by_number(random.Random(args.seed).sample(pool, min(args.random, len(pool))))
+        order = random.Random(args.seed).sample(pool, len(pool))   # random order of the whole pool
         print(f"{len(pool)} eligible participants (>= {args.min_ratings} ratings on day(s) {args.days}), seed {args.seed}")
+        if token is None:
+            sys.exit("Hugging Face token needed to check which participants have recordings (hf auth login).")
+        task = "emotion-video" if "emotion-video" in args.tasks else args.tasks[0]
+        chosen, unavailable = [], []
+        for p in order:                    # draw in this order, skipping participants without a recording
+            if len(chosen) == args.random:
+                break
+            remote = f"{args.versions[0]}/{p}/{p}_day-{args.days[0]}_task-{task}_multimodal.bdf"
+            (chosen if exists_on_hf(remote, token) else unavailable).append(p)
+        if unavailable:
+            print(f"skipped, no {task} recording on Hugging Face: {', '.join(by_number(unavailable))}")
+        chosen = by_number(chosen)
     else:
         chosen = [p for p in by_number(args.participants or read_participant_file(args.participants_file)) if p not in excluded]
     if excluded:
@@ -214,6 +242,20 @@ def main():
             missing.append(remote)
 
     print(f"Done: {len(files) - len(missing)} / {len(files)} files present.")
+    # per participant: what could not be downloaded
+    rows = [{"participant": r.split("/")[1], "file": r.split("/")[-1]} for r in missing]
+    by_p = {}
+    for r in rows:
+        by_p.setdefault(r["participant"], []).append(r["file"])
+    none = [p for p in chosen if p in by_p and not (data_root / args.versions[0] / p).is_dir()]
+    if none:
+        print(f"NOT DOWNLOADED (no recording on Hugging Face): {', '.join(none)}")
+    partial = {p: f for p, f in by_p.items() if p not in none}
+    for p, f in partial.items():
+        print(f"PARTIAL {p}: missing {', '.join(sorted({x.split('task-')[-1].split('_')[0] if 'task-' in x else x for x in f}))}")
+    if args.log:
+        pd.DataFrame(rows, columns=["participant", "file"]).to_csv(args.log, index=False)
+        print("missing files written to", args.log)
     if missing:   # tasks and days are not available for every participant
         print("Not available on Hugging Face:")
         for remote in missing:
